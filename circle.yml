@@ -8,17 +8,5 @@ machine:
   xcode:
     version: "7.0"
   environment:
-    XCODE_WORKSPACE: PopTop.xcworkspace
+    XCODE_PROJECT: PopTop.xcodeproj
     XCODE_SCHEME: "PopTop"
-test:
-  override:
-    - xctool
-      -reporter pretty
-      CODE_SIGNING_REQUIRED=NO
-      CODE_SIGN_IDENTITY=
-      PROVISIONING_PROFILE=
-      -destination 'platform=iOS Simulator,name=iPad 2,OS=latest'
-      -sdk iphonesimulator
-      -workspace PopTop.xcworkspace
-      -scheme "PopTop"
-      build build-tests run-tests
