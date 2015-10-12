@@ -3,7 +3,6 @@ dependencies:
     # this list exists because CircleCI's version of xctool might not always be the latest
     # the pre-build step forces an update to the latest
     - brew uninstall xctool && brew install --HEAD xctool
-    - git submodule update --init --recursive
 machine:
   xcode:
     version: "7.0"
