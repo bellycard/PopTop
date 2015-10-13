@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		D13C39431BCBF7FE0044B40D /* PopTop.h in Headers */ = {isa = PBXBuildFile; fileRef = D13C39421BCBF7FE0044B40D /* PopTop.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D13C394A1BCBF7FE0044B40D /* PopTop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13C393F1BCBF7FE0044B40D /* PopTop.framework */; settings = {ASSET_TAGS = (); }; };
-		D13C394F1BCBF7FE0044B40D /* PopTopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13C394E1BCBF7FE0044B40D /* PopTopTests.swift */; };
-		D13C395A1BCBF84B0044B40D /* PopTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13C39591BCBF84B0044B40D /* PopTop.swift */; settings = {ASSET_TAGS = (); }; };
+		D13C394F1BCBF7FE0044B40D /* ManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13C394E1BCBF7FE0044B40D /* ManagerTests.swift */; };
+		D13C395A1BCBF84B0044B40D /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13C39591BCBF84B0044B40D /* Manager.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,9 +28,9 @@
 		D13C39421BCBF7FE0044B40D /* PopTop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopTop.h; sourceTree = "<group>"; };
 		D13C39441BCBF7FE0044B40D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D13C39491BCBF7FE0044B40D /* PopTopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PopTopTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D13C394E1BCBF7FE0044B40D /* PopTopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopTopTests.swift; sourceTree = "<group>"; };
+		D13C394E1BCBF7FE0044B40D /* ManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerTests.swift; sourceTree = "<group>"; };
 		D13C39501BCBF7FE0044B40D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D13C39591BCBF84B0044B40D /* PopTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopTop.swift; sourceTree = "<group>"; };
+		D13C39591BCBF84B0044B40D /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,8 +74,8 @@
 			isa = PBXGroup;
 			children = (
 				D13C39421BCBF7FE0044B40D /* PopTop.h */,
-				D13C39441BCBF7FE0044B40D /* Info.plist */,
-				D13C39591BCBF84B0044B40D /* PopTop.swift */,
+				D13C39591BCBF84B0044B40D /* Manager.swift */,
+				D13C395D1BCC1D4F0044B40D /* Supporting Files */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -83,10 +83,18 @@
 		D13C394D1BCBF7FE0044B40D /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				D13C394E1BCBF7FE0044B40D /* PopTopTests.swift */,
+				D13C394E1BCBF7FE0044B40D /* ManagerTests.swift */,
 				D13C39501BCBF7FE0044B40D /* Info.plist */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		D13C395D1BCC1D4F0044B40D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D13C39441BCBF7FE0044B40D /* Info.plist */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,7 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D13C395A1BCBF84B0044B40D /* PopTop.swift in Sources */,
+				D13C395A1BCBF84B0044B40D /* Manager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,7 +213,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D13C394F1BCBF7FE0044B40D /* PopTopTests.swift in Sources */,
+				D13C394F1BCBF7FE0044B40D /* ManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
