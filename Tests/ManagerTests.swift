@@ -1,5 +1,5 @@
 //
-//  PopTopTests.swift
+//  ManagerTests.swift
 //  PopTopTests
 //
 //  Created by AJ Self on 10/12/15.
@@ -35,42 +35,6 @@ class ManagerTests: XCTestCase {
         XCTAssertEqual(manager.resources, testURLs, "PopTop should accept array of URLs")
     }
     
-    func testShouldReturnFalseIfNotStarted() {
-        // Given
-        let request = setUpFakeRequest()
-        
-        // When
-        let result = manager.canInitWithRequest(request)
-        
-        // Then
-        XCTAssertFalse(result, "PopTop should return false when provided valid URLs and not started")
-    }
-    
-    func testShouldReturnTrueIfStarted() {
-        // Given
-        let request = setUpFakeRequest()
-        
-        // When
-        manager.start()
-        let result = manager.canInitWithRequest(request)
-        
-        // Then
-        XCTAssertTrue(result, "PopTop should return true when provided valid URLs and started")
-    }
-    
-    func testShouldReturnFalseIfEnded() {
-        // Given
-        let request = setUpFakeRequest()
-        
-        // When
-        manager.start()
-        manager.end()
-        let result = manager.canInitWithRequest(request)
-        
-        // Then
-        XCTAssertFalse(result, "PopTop should return false when provided valid URLs and ended")
-    }
-    
     func testShouldReturnFalseIfRequestDoesntHaveTag() {
         // Given
         let request = setUpFakeRequest()
@@ -78,7 +42,6 @@ class ManagerTests: XCTestCase {
         NSURLProtocol.setProperty(true, forKey: "PopTopRequestHandled", inRequest: mutableRequest)
         
         // When
-        manager.start()
         let result = manager.canInitWithRequest(request)
         
         // Then
