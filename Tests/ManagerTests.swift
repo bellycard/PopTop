@@ -23,10 +23,18 @@ class ManagerTests: XCTestCase {
         super.tearDown()
     }
     
+    class ResourceWithData: Resource {
+        override func data() -> (resourceData: NSData, resourceID: Int) {
+            let testInfo = ["foo": "bar"]
+            let testData = try! NSJSONSerialization.dataWithJSONObject(testInfo, options: NSJSONWritingOptions())
+            return (testData, 123)
+        }
+    }
+    
     // MARK: - Test Helpers
     
     func setUpFakeRequest() -> NSURLRequest {
-        let testResource = Resource(resourceIdentifier: "/path/to/example")
+        let testResource = ResourceWithData(resourceIdentifier: "/path/to/example")
         manager.resources = [testResource]
         NSURLProtocol.registerClass(PopTop.Manager)
         return NSURLRequest(URL: NSURL(string: testResource.resourceIdentifier)!)
@@ -45,6 +53,15 @@ class ManagerTests: XCTestCase {
             }
             networkTask.cancel()
         }
+    }
+    
+    func createStoredResource(URL: NSURL, taskToResume: NSURLSessionDataTask) {
+        let request = NSMutableURLRequest(URL: URL)
+        request.HTTPMethod = "POST"
+        NSURLSession.sharedSession().dataTaskWithRequest(request) { (_, _, _) in
+            // When
+            taskToResume.resume()
+            }.resume()
     }
     
     // MARK: - Class Tests
@@ -141,16 +158,52 @@ class ManagerTests: XCTestCase {
         waitForExpectationsWithNetworkTask(networkTask)
     }
     
-    func xtestShouldNotRecreateAnExistingRegistry() {
+    func testShouldRetrieveAResourceWithID() {
+        // Given
+        let expectation = expectationWithDescription("Adding resource to collection")
+        let postURL = NSURL(string: "http://example.com/path/to/example")!
+        let getURL = NSURL(string: "https://example.com/path/to/example/123")!
         
-    }
-    
-    func xtestShouldRetrieveAResourceWithID() {
+        setUpFakeRequest()
         
+        // GET to retrieve
+        let networkTask = setUpNetworkTask(getURL, method: "GET") { (data, res, err) in
+            // Then
+            XCTAssertNotNil(data, "Returned data should be available")
+            XCTAssertNil(err, "There shouldn't be any errors")
+            expectation.fulfill()
+        }
+        
+        // POST to create a resource to start
+        createStoredResource(postURL, taskToResume: networkTask)
+        
+        // When
+        waitForExpectationsWithNetworkTask(networkTask)
     }
     
     func xtestShouldUpdateAResourceWithID() {
+        // Given
+        let expectation = expectationWithDescription("Adding resource to collection")
+        let postURL = NSURL(string: "http://example.com/path/to/example")!
+        let putURL = NSURL(string: "https://example.com/path/to/example/123")!
         
+        setUpFakeRequest()
+        
+        let getNetworkTask = setUpNetworkTask(putURL, method: "GET") { (data, res, err) in
+            // Then
+            expectation.fulfill()
+        }
+        
+        // PUT to update
+        let networkTask = setUpNetworkTask(putURL, method: "PUT") { (data, res, err) in
+            // Then
+            XCTAssertNotNil(data, "Returned data should be available")
+            XCTAssertNil(err, "There shouldn't be any errors")
+            getNetworkTask.resume()
+        }
+        
+        // POST to create a resource to start
+        createStoredResource(postURL, taskToResume: networkTask)
     }
     
     func xtestShouldDeleteAResourceWithID() {

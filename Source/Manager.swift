@@ -11,13 +11,14 @@ import Foundation
 public class Manager: NSURLProtocol {
     // MARK: - Properties
     public static var resources = [Resource]()
-    static var registry = [String: [String: NSData]]()
+    static var registry = [String: [Int: NSData]]()
     
     // MARK: - Protocol implementation
     // Class
     override public class func canInitWithRequest(request: NSURLRequest) -> Bool {
+        let requestName = resourceNameAndIDFromURL(request.URL!).name
         
-        for resource in resources  where resourceNameAndIDFromURL(resource.url!).name == request.URL?.relativePath {
+        for resource in resources  where resourceNameAndIDFromURL(resource.URL!).name == requestName {
             return true
         }
         
@@ -27,33 +28,41 @@ public class Manager: NSURLProtocol {
     // Instance
     override public func startLoading() {
         let resourceDetails = Manager.resourceNameAndIDFromURL(request.URL!)
+        var dataToReturn = NSData()
+        let resource = Manager.resourceByResourceIdentifier(resourceDetails.name!)
+        
+        
         
         switch request.HTTPMethod! {
         case "GET":
-            print("GET")
+            if let name = resourceDetails.name, number = resourceDetails.id {
+                dataToReturn = Manager.registry[name]![number]!
+            } else {
+                dataToReturn = (resource?.data().resourceData)!
+            }
+            
         case "POST":
-            if let resourceName = resourceDetails.name, let resource = Manager.resourceByResourceIdentifier(resourceName) {
-                let storeKey = request.URL!.relativePath! as String
-                
-                Manager.registry[resourceName] = [storeKey: resource.data()]
+            if let resourceName = resourceDetails.name, data = resource?.data()  {
+                let resourceData = data.resourceData!
+                let resourceID = data.resourceID!
+
+                Manager.registry[resourceName] = [resourceID: resourceData]
+                dataToReturn = resourceData
             }
             
         default:
             // TODO: make this throw an error
-            print("UNKNOWN")
+            break
         }
 
-        let response = NSHTTPURLResponse(URL: request.URL!, statusCode: 200, HTTPVersion: "HTTP/1.1", headerFields: ["Content-Type": "image/jpeg"])!
-        
-//        let imageData = UIImageJPEGRepresentation(UIImage(named: "nopotatosalad")!, 1.0)!
-        let fakeData = NSData()
+        let response = NSHTTPURLResponse(URL: request.URL!, statusCode: 200, HTTPVersion: "HTTP/1.1", headerFields: ["Content-Type": resource!.contentType])!
         
         client?.URLProtocol(self, didReceiveResponse: response, cacheStoragePolicy: .NotAllowed)
-        client?.URLProtocol(self, didLoadData: fakeData)
+        client?.URLProtocol(self, didLoadData: dataToReturn)
         client?.URLProtocolDidFinishLoading(self)
     }
     
-    
+    /// Because PopTop always returns an object it is acceptable to leave this empty.
     override public func stopLoading() {}
     
     /// Returns unchanged request
@@ -88,7 +97,7 @@ public class Manager: NSURLProtocol {
     
     /// Find and return a stored resource instance by its Resource Identifier.
     class func resourceByResourceIdentifier(resourceIdentifier: String) -> Resource? {
-        for resource in Manager.resources where resource.resourceIdentifier == resourceIdentifier {
+        for resource in resources where resource.resourceIdentifier == resourceIdentifier {
             return resource
         }
         
