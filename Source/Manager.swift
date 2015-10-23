@@ -78,6 +78,8 @@ public class Manager: NSURLProtocol {
         
         if let id = Int(url.lastPathComponent!) {
             resourceID = id
+            // Remove the ID from the route so the path to the resource can become its key like so:
+            // /users/123/pets/456 -> ["/users/123/pets": ["456": NSData]]
             pathComponents.removeLast()
         }
 
@@ -87,7 +89,6 @@ public class Manager: NSURLProtocol {
         }
         
         resourceName = pathComponents.joinWithSeparator(separator)
-        
         resourceName = separator + resourceName!
         
         return (resourceName, resourceID)
