@@ -31,8 +31,6 @@ public class Manager: NSURLProtocol {
         var dataToReturn = NSData()
         let resource = Manager.resourceByResourceIdentifier(resourceDetails.name!)
         
-        
-        
         switch request.HTTPMethod! {
         case "GET":
             if let name = resourceDetails.name, number = resourceDetails.id {
