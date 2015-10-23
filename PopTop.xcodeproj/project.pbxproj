@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D10AA8951BD66E2A00C6FB9B /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10AA8941BD66E2A00C6FB9B /* Resource.swift */; settings = {ASSET_TAGS = (); }; };
+		D13BC59B1BD6954200336CFF /* ManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13C394E1BCBF7FE0044B40D /* ManagerTests.swift */; settings = {ASSET_TAGS = (); }; };
 		D13C39431BCBF7FE0044B40D /* PopTop.h in Headers */ = {isa = PBXBuildFile; fileRef = D13C39421BCBF7FE0044B40D /* PopTop.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D13C394A1BCBF7FE0044B40D /* PopTop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13C393F1BCBF7FE0044B40D /* PopTop.framework */; settings = {ASSET_TAGS = (); }; };
-		D13C394F1BCBF7FE0044B40D /* ManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13C394E1BCBF7FE0044B40D /* ManagerTests.swift */; };
 		D13C395A1BCBF84B0044B40D /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13C39591BCBF84B0044B40D /* Manager.swift */; settings = {ASSET_TAGS = (); }; };
+		D15D6E571BD6861A00A144A2 /* ResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15D6E561BD6861A00A144A2 /* ResourceTests.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,6 +26,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D10AA8941BD66E2A00C6FB9B /* Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		D13C393F1BCBF7FE0044B40D /* PopTop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PopTop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D13C39421BCBF7FE0044B40D /* PopTop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopTop.h; sourceTree = "<group>"; };
 		D13C39441BCBF7FE0044B40D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -31,6 +34,7 @@
 		D13C394E1BCBF7FE0044B40D /* ManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerTests.swift; sourceTree = "<group>"; };
 		D13C39501BCBF7FE0044B40D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D13C39591BCBF84B0044B40D /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
+		D15D6E561BD6861A00A144A2 /* ResourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +79,7 @@
 			children = (
 				D13C39421BCBF7FE0044B40D /* PopTop.h */,
 				D13C39591BCBF84B0044B40D /* Manager.swift */,
+				D10AA8941BD66E2A00C6FB9B /* Resource.swift */,
 				D13C395D1BCC1D4F0044B40D /* Supporting Files */,
 			);
 			path = Source;
@@ -84,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				D13C394E1BCBF7FE0044B40D /* ManagerTests.swift */,
+				D15D6E561BD6861A00A144A2 /* ResourceTests.swift */,
 				D13C39501BCBF7FE0044B40D /* Info.plist */,
 			);
 			path = Tests;
@@ -205,6 +211,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D10AA8951BD66E2A00C6FB9B /* Resource.swift in Sources */,
 				D13C395A1BCBF84B0044B40D /* Manager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -213,7 +220,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D13C394F1BCBF7FE0044B40D /* ManagerTests.swift in Sources */,
+				D15D6E571BD6861A00A144A2 /* ResourceTests.swift in Sources */,
+				D13BC59B1BD6954200336CFF /* ManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,7 +273,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -307,7 +315,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -395,6 +403,7 @@
 				D13C39551BCBF7FE0044B40D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D13C39561BCBF7FE0044B40D /* Build configuration list for PBXNativeTarget "PopTopTests" */ = {
 			isa = XCConfigurationList;
@@ -403,6 +412,7 @@
 				D13C39581BCBF7FE0044B40D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
