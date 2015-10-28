@@ -10,7 +10,12 @@ import Foundation
 
 public class Manager: NSURLProtocol {
     // MARK: - Properties
+
+    /// Holds instances of Resource subclasses and are used to check if Manager can handle an incoming request
     public static var resources = [Resource]()
+    
+    /// Holds values for individual resources
+    /// Example: `/path/to/resource/123` -> `["/path/to/resource": [123: NSData]]`
     static var registry = [String: [Int: NSData]]()
     
     // MARK: - Protocol implementation
@@ -33,11 +38,11 @@ public class Manager: NSURLProtocol {
         
         switch request.HTTPMethod! {
         case "GET":
-            if let name = resourceDetails.name, number = resourceDetails.id {
-                if let cachedRegistry = Manager.registry[name], cachedResource = cachedRegistry[number] {
+            if let name = resourceDetails.name, id = resourceDetails.id {
+                if let cachedRegistry = Manager.registry[name], cachedResource = cachedRegistry[id] {
                     dataToReturn = cachedResource
                 } else {
-                    Manager.registry[name] = [number: (resource?.data().resourceData)!]
+                    Manager.registry[name] = [id: (resource?.data().resourceData)!]
                     dataToReturn = (resource?.data().resourceData)!
                 }
             } else {
@@ -45,11 +50,11 @@ public class Manager: NSURLProtocol {
             }
             
         case "POST":
-            if let resourceName = resourceDetails.name, data = resource?.data()  {
+            if let name = resourceDetails.name, data = resource?.data()  {
                 let resourceData = data.resourceData!
-                let resourceID = data.resourceID!
+                let id = data.resourceID!
 
-                Manager.registry[resourceName] = [resourceID: resourceData]
+                Manager.registry[name] = [id: resourceData]
                 dataToReturn = resourceData
             }
             
@@ -82,12 +87,12 @@ public class Manager: NSURLProtocol {
     /// Normalize a path which can be used as a Resource Identifier and requested resource ID, if available.
     class func resourceNameAndIDFromURL(url: NSURL) -> (name: String?, id: Int?) {
         var pathComponents = url.pathComponents!
-        var resourceName: String?
-        var resourceID: Int?
+        var name: String?
+        var id: Int?
         let separator = "/"
         
-        if let id = Int(url.lastPathComponent!) {
-            resourceID = id
+        if let idProvided = Int(url.lastPathComponent!) {
+            id = idProvided
             // Remove the ID from the route so the path to the resource can become its key like so:
             // /users/123/pets/456 -> ["/users/123/pets": ["456": NSData]]
             pathComponents.removeLast()
@@ -98,10 +103,10 @@ public class Manager: NSURLProtocol {
             pathComponents.removeFirst()
         }
         
-        resourceName = pathComponents.joinWithSeparator(separator)
-        resourceName = separator + resourceName!
+        name = pathComponents.joinWithSeparator(separator)
+        name = separator + name!
         
-        return (resourceName, resourceID)
+        return (name, id)
     }
     
     /// Find and return a stored resource instance by its Resource Identifier.
