@@ -16,6 +16,7 @@ class ManagerTests: XCTestCase {
         super.setUp()
         
         manager.resources = [Resource]()
+        manager.registry = [String: [Int: NSData]]()
     }
     
     override func tearDown() {
@@ -164,12 +165,15 @@ class ManagerTests: XCTestCase {
         let postURL = NSURL(string: "http://example.com/path/to/example")!
         let getURL = NSURL(string: "https://example.com/path/to/example/123")!
         
+        XCTAssert(Manager.registry.isEmpty, "Registry should be empty to start")
+        
         setUpFakeRequest()
         
         // GET to retrieve
         let networkTask = setUpNetworkTask(getURL, method: "GET") { (data, res, err) in
             // Then
             XCTAssertNotNil(data, "Returned data should be available")
+            XCTAssertFalse(Manager.registry.isEmpty, "Resources should have been created and stored")
             XCTAssertNil(err, "There shouldn't be any errors")
             expectation.fulfill()
         }
@@ -181,6 +185,7 @@ class ManagerTests: XCTestCase {
         waitForExpectationsWithNetworkTask(networkTask)
     }
     
+    // Skipping for now
     func xtestShouldUpdateAResourceWithID() {
         // Given
         let expectation = expectationWithDescription("Adding resource to collection")
@@ -206,7 +211,26 @@ class ManagerTests: XCTestCase {
         createStoredResource(postURL, taskToResume: networkTask)
     }
     
-    func xtestShouldDeleteAResourceWithID() {
+    func testShouldDeleteAResourceWithID() {
+        // Given
+        let expectation = expectationWithDescription("Deleting resource to collection")
+        let postURL = NSURL(string: "http://example.com/path/to/example")!
+        let deleteURL = NSURL(string: "https://example.com/path/to/example/123")!
         
+        setUpFakeRequest()
+        
+        // DELETE to remove
+        let networkTask = setUpNetworkTask(deleteURL, method: "DELETE") { (data, res, err) in
+            // Then
+            XCTAssert(Manager.registry["/path/to/example"]!.isEmpty, "Manager resources should be empty")
+            XCTAssertNil(err, "There shouldn't be any errors")
+            expectation.fulfill()
+        }
+        
+        // POST to create a resource to start
+        createStoredResource(postURL, taskToResume: networkTask)
+        
+        // When
+        waitForExpectationsWithNetworkTask(networkTask)
     }
 }

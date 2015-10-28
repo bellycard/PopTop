@@ -57,10 +57,10 @@ public class Resource: NSObject {
         Subclasses are required to create their own implementation
     
         - Returns:
-            - data: NSData representation of object to be returned
-            - resourceID: Identifier used for storing data in the manager
+            - rawData: NSData representation of object to be returned
+            - id: Identifier used for storing data in the manager
     */
-    public func data() -> (resourceData: NSData?, resourceID: Int?) {
+    public func data() -> (rawData: NSData?, id: Int?) {
         fatalError("Subclasses are required to create their own implementation") //TODO: Fine for now but is there a better way to do this? I can haz protocols? Or throw instead of fatalError?
     }
 }
