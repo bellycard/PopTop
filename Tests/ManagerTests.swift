@@ -222,7 +222,7 @@ class ManagerTests: XCTestCase {
         // DELETE to remove
         let networkTask = setUpNetworkTask(deleteURL, method: "DELETE") { (data, res, err) in
             // Then
-            XCTAssert(Manager.registry["/path/to/example"]!.count == 0, "Manager resources should be empty")
+            XCTAssert(Manager.registry["/path/to/example"]!.isEmpty, "Manager resources should be empty")
             XCTAssertNil(err, "There shouldn't be any errors")
             expectation.fulfill()
         }
@@ -232,6 +232,5 @@ class ManagerTests: XCTestCase {
         
         // When
         waitForExpectationsWithNetworkTask(networkTask)
-        
     }
 }
