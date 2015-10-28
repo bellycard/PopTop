@@ -85,7 +85,7 @@ public class Manager: NSURLProtocol {
     
     // MARK: - Helpers
     /// Normalize a path which can be used as a Resource Identifier and requested resource ID, if available.
-    class func resourceNameAndIDFromURL(url: NSURL) -> (name: String?, id: Int?) {
+    static func resourceNameAndIDFromURL(url: NSURL) -> (name: String?, id: Int?) {
         var pathComponents = url.pathComponents!
         var name: String?
         var id: Int?
@@ -110,7 +110,7 @@ public class Manager: NSURLProtocol {
     }
     
     /// Find and return a stored resource instance by its Resource Identifier.
-    class func resourceByResourceIdentifier(resourceIdentifier: String) -> Resource? {
+    static func resourceByResourceIdentifier(resourceIdentifier: String) -> Resource? {
         for resource in resources where resource.resourceIdentifier == resourceIdentifier {
             return resource
         }
