@@ -32,34 +32,42 @@ public class Manager: NSURLProtocol {
     
     // Instance
     override public func startLoading() {
-        let resourceDetails = Manager.resourceNameAndIDFromURL(request.URL!)
+        /// A tuple of (key, id) that will be used within the registry dict based on the URL path
+        /// `/path/to/resource/123` -> `("/path/to/resource", 123)`
+        let pathToResourceParts = Manager.resourceNameAndIDFromURL(request.URL!)
+        
+        /// Data that will be returned in the HTTP request.
         var dataToReturn = NSData()
-        let resource = Manager.resourceByResourceIdentifier(resourceDetails.name!)
+        
+        /// The Resource subclass instance itself, if available.
+        /// This is used to create new represetnations of a requested resource
+        /// requested URL: `/path/to/resource/123` -> resource.data().rawData == {"id": 123, "foo": "bar"}
+        let resource = Manager.resourceByResourceIdentifier(pathToResourceParts.name!)
         
         switch request.HTTPMethod! {
         case "GET":
-            if let name = resourceDetails.name, id = resourceDetails.id {
-                if let cachedRegistry = Manager.registry[name], cachedResource = cachedRegistry[id] {
+            if let name = pathToResourceParts.name, id = pathToResourceParts.id {
+                if let cachedCollection = Manager.registry[name], cachedResource = cachedCollection[id] {
                     dataToReturn = cachedResource
                 } else {
-                    Manager.registry[name] = [id: (resource?.data().resourceData)!]
-                    dataToReturn = (resource?.data().resourceData)!
+                    dataToReturn = (resource?.data().rawData)!
+                    Manager.registry[name] = [id: dataToReturn]
                 }
             } else {
-                dataToReturn = (resource?.data().resourceData)!
+                // If a name or id are not present then just return the data from the Resource
+                // This can happen if, say, the request is for an image or some non-REST type
+                dataToReturn = (resource?.data().rawData)!
             }
             
         case "POST":
-            if let name = resourceDetails.name, data = resource?.data()  {
-                let resourceData = data.resourceData!
-                let id = data.resourceID!
-
-                Manager.registry[name] = [id: resourceData]
-                dataToReturn = resourceData
+            if let name = pathToResourceParts.name, data = resource?.data()  {
+                let id = data.id!
+                dataToReturn = data.rawData!
+                Manager.registry[name] = [id: dataToReturn]
             }
             
         case "DELETE":
-            if let id = resourceDetails.id, name = resourceDetails.name {
+            if let name = pathToResourceParts.name, id = pathToResourceParts.id {
                 Manager.registry[name]?.removeValueForKey(id)
             }
             
