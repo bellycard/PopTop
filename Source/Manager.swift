@@ -34,7 +34,12 @@ public class Manager: NSURLProtocol {
         switch request.HTTPMethod! {
         case "GET":
             if let name = resourceDetails.name, number = resourceDetails.id {
-                dataToReturn = Manager.registry[name]![number]!
+                if let cachedRegistry = Manager.registry[name], cachedResource = cachedRegistry[number] {
+                    dataToReturn = cachedResource
+                } else {
+                    Manager.registry[name] = [number: (resource?.data().resourceData)!]
+                    dataToReturn = (resource?.data().resourceData)!
+                }
             } else {
                 dataToReturn = (resource?.data().resourceData)!
             }
@@ -46,6 +51,11 @@ public class Manager: NSURLProtocol {
 
                 Manager.registry[resourceName] = [resourceID: resourceData]
                 dataToReturn = resourceData
+            }
+            
+        case "DELETE":
+            if let id = resourceDetails.id, name = resourceDetails.name {
+                Manager.registry[name]?.removeValueForKey(id)
             }
             
         default:

@@ -35,7 +35,7 @@ class ResourceTests: XCTestCase {
     func testShouldHaveDataAndID() {
         // Given
         class TestResource: Resource {
-            override func data() -> (resourceData: NSData, resourceID: Int) {
+            override func data() -> (resourceData: NSData?, resourceID: Int?) {
                 let testInfo = ["foo": "bar"]
                 let testData = try! NSJSONSerialization.dataWithJSONObject(testInfo, options: NSJSONWritingOptions())
                 return (testData, 123)
@@ -44,10 +44,12 @@ class ResourceTests: XCTestCase {
         
         // When
         let resource = TestResource(resourceIdentifier: "/path")
+        
         let data = resource.data()
         
         // Then
-        XCTAssert((data.resourceData as Any) is NSData, "Resource data should not be nil and be a valid NSData object")
+        
+        XCTAssert((data.resourceData! as Any) is NSData, "Resource data should not be nil and be a valid NSData object")
         XCTAssertEqual(data.resourceID, 123, "Resource IDs should match")
     }
 }
