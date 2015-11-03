@@ -162,12 +162,13 @@ class ManagerTests: XCTestCase {
     func testShouldRetrieveAResourceWithID() {
         // Given
         let expectation = expectationWithDescription("Adding resource to collection")
-        let postURL = NSURL(string: "http://example.com/path/to/example")!
         let getURL = NSURL(string: "https://example.com/path/to/example/123")!
         
         XCTAssert(Manager.registry.isEmpty, "Registry should be empty to start")
         
-        setUpFakeRequest()
+        let testResource = ResourceWithData(resourceIdentifier: "/path/to/example/123")
+        manager.resources = [testResource]
+        NSURLProtocol.registerClass(PopTop.Manager)
         
         // GET to retrieve
         let networkTask = setUpNetworkTask(getURL, method: "GET") { (data, res, err) in
@@ -177,9 +178,8 @@ class ManagerTests: XCTestCase {
             XCTAssertNil(err, "There shouldn't be any errors")
             expectation.fulfill()
         }
-        
-        // POST to create a resource to start
-        createStoredResource(postURL, taskToResume: networkTask)
+            
+        networkTask.resume()
         
         // When
         waitForExpectationsWithNetworkTask(networkTask)

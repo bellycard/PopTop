@@ -42,7 +42,7 @@ public class Manager: NSURLProtocol {
         /// The Resource subclass instance itself, if available.
         /// This is used to create new represetnations of a requested resource
         /// requested URL: `/path/to/resource/123` -> resource.data().rawData == {"id": 123, "foo": "bar"}
-        let resource = Manager.resourceByResourceIdentifier(pathToResourceParts.name!)
+        var resource = Manager.resourceByResourceIdentifier(pathToResourceParts.name!)
         
         switch request.HTTPMethod! {
         case "GET":
@@ -50,7 +50,9 @@ public class Manager: NSURLProtocol {
                 if let cachedCollection = Manager.registry[name], cachedResource = cachedCollection[id] {
                     dataToReturn = cachedResource
                 } else {
-                    dataToReturn = (resource?.data().rawData)!
+                    // If a resource that was setup with a name like so: Resource(resourceIdentifier: "/path/to/resource/1337") then it won't exist in the registry yet
+                    resource = Manager.resourceByResourceIdentifier(pathToResourceParts.name! + "/" + String(pathToResourceParts.id!))
+                    dataToReturn = resource!.data().rawData!
                     Manager.registry[name] = [id: dataToReturn]
                 }
             } else {
@@ -93,6 +95,7 @@ public class Manager: NSURLProtocol {
     
     // MARK: - Helpers
     /// Normalize a path which can be used as a Resource Identifier and requested resource ID, if available.
+    /// - Returns: "/path/to/resource/123" -> ("/path/to/resource/", 123)
     static func resourceNameAndIDFromURL(url: NSURL) -> (name: String?, id: Int?) {
         var pathComponents = url.pathComponents!
         var name: String?
