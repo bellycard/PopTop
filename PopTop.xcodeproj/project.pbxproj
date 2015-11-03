@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D10AA8951BD66E2A00C6FB9B /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10AA8941BD66E2A00C6FB9B /* Resource.swift */; settings = {ASSET_TAGS = (); }; };
-		D13BC59B1BD6954200336CFF /* ManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13C394E1BCBF7FE0044B40D /* ManagerTests.swift */; settings = {ASSET_TAGS = (); }; };
+		D10AA8951BD66E2A00C6FB9B /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10AA8941BD66E2A00C6FB9B /* Resource.swift */; };
+		D13BC59B1BD6954200336CFF /* ManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13C394E1BCBF7FE0044B40D /* ManagerTests.swift */; };
 		D13C39431BCBF7FE0044B40D /* PopTop.h in Headers */ = {isa = PBXBuildFile; fileRef = D13C39421BCBF7FE0044B40D /* PopTop.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D13C394A1BCBF7FE0044B40D /* PopTop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13C393F1BCBF7FE0044B40D /* PopTop.framework */; settings = {ASSET_TAGS = (); }; };
-		D13C395A1BCBF84B0044B40D /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13C39591BCBF84B0044B40D /* Manager.swift */; settings = {ASSET_TAGS = (); }; };
-		D15D6E571BD6861A00A144A2 /* ResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15D6E561BD6861A00A144A2 /* ResourceTests.swift */; settings = {ASSET_TAGS = (); }; };
+		D13C394A1BCBF7FE0044B40D /* PopTop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13C393F1BCBF7FE0044B40D /* PopTop.framework */; };
+		D13C395A1BCBF84B0044B40D /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13C39591BCBF84B0044B40D /* Manager.swift */; };
+		D15D6E571BD6861A00A144A2 /* ResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15D6E561BD6861A00A144A2 /* ResourceTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
