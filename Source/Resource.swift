@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Resource: NSObject {
+public class Resource {
     /// The path to the resource that the Manager should match requests against
     public let resourceIdentifier: String
     
@@ -17,6 +17,9 @@ public class Resource: NSObject {
     
     /// NSURL for convenience
     let URL: NSURL?
+    
+    /// Determines if the resource is RESTful JSON resource. True by default.
+    var isREST: Bool
     
     /**
         Initializes a Resource with provided resource ID and MIME type
@@ -34,23 +37,12 @@ public class Resource: NSObject {
     
         - Returns: A new Resource instance set with provided parameters
     */
-    public init(resourceIdentifier: String, contentType: String) {
+    public init(resourceIdentifier: String, contentType: String = "application/json; charset=utf-8", isREST: Bool = true) {
         self.contentType = contentType
+        self.isREST = isREST
         self.resourceIdentifier = resourceIdentifier
         self.URL = NSURL(string: resourceIdentifier)
     }
-    
-    /**
-        Initializes a Resource with the MIME type set to "application/json; charset=utf-8".
-    
-        - Parameter resourceIdentifier: The path the resource should match
-    
-        - Returns: A new Resource instance with the MIME type set to "application/json; charset=utf-8"
-    */
-    public convenience init(resourceIdentifier id: String) {
-        self.init(resourceIdentifier: id, contentType: "application/json; charset=utf-8")
-    }
-    
     
     /**
         NSData object that will be returned in the request representing the Resource instance.

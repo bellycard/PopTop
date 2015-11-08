@@ -13,23 +13,35 @@ class ResourceTests: XCTestCase {
 
     func testShouldSetPropertiesOnDesignatedInitializer() {
         // Given
-        let id = "/path/to/good/times"
+        let resourceID = "/path/to/good/times"
         let type = "fake type"
-        let resource = Resource(resourceIdentifier: id, contentType: type)
+        
+        // When
+        let resource = Resource(resourceIdentifier: resourceID, contentType: type)
         
         // Then
-        XCTAssertEqual(resource.resourceIdentifier, id, "Resource identifier should be set and valid")
+        XCTAssertEqual(resource.resourceIdentifier, resourceID, "Resource identifier should be set and valid")
         XCTAssertEqual(resource.contentType, type, "Mime type should be set and valid")
+        XCTAssertTrue(resource.isREST, "Resource should be a RESTful resource by default")
+        XCTAssertEqual(resource.URL, NSURL(string: resourceID), "Resource URL should be set and valid")
     }
     
-    func testShouldSetPropertiesOnConvenienceInitializer() {
+    func testShouldSetIsRestToFalseOnInit() {
         // Given
-        let id = "/path/to/really/cool/resource"
-        let resource = Resource(resourceIdentifier: id)
+        let resourceID = "/path/to/good/times"
+        let type = "fake type"
+        
+        // When
+        let resource = Resource(resourceIdentifier: resourceID, contentType: type, isREST: false)
         
         // Then
-        XCTAssertEqual(resource.resourceIdentifier, id, "Resource identifier should be set and valid")
-        XCTAssertEqual(resource.contentType, "application/json; charset=utf-8", "Mime type should be set and valid")
+        XCTAssertFalse(resource.isREST, "isREST should be set to false")
+        
+        // When
+        resource.isREST = true
+        
+        // Then
+        XCTAssertTrue(resource.isREST, "isREST should be true")
     }
     
     func testShouldHaveDataAndID() {

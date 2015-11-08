@@ -7,12 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B79E8502CC6F464D82B86F0C /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD0A6FF2DC17167C9DED9F3D /* Pods.framework */; };
 		D10AA8951BD66E2A00C6FB9B /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10AA8941BD66E2A00C6FB9B /* Resource.swift */; };
+		D12FDD291BEBE6510093D250 /* ImageResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12FDD281BEBE6510093D250 /* ImageResource.swift */; };
 		D13BC59B1BD6954200336CFF /* ManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13C394E1BCBF7FE0044B40D /* ManagerTests.swift */; };
 		D13C39431BCBF7FE0044B40D /* PopTop.h in Headers */ = {isa = PBXBuildFile; fileRef = D13C39421BCBF7FE0044B40D /* PopTop.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D13C394A1BCBF7FE0044B40D /* PopTop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13C393F1BCBF7FE0044B40D /* PopTop.framework */; };
 		D13C395A1BCBF84B0044B40D /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13C39591BCBF84B0044B40D /* Manager.swift */; };
 		D15D6E571BD6861A00A144A2 /* ResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15D6E561BD6861A00A144A2 /* ResourceTests.swift */; };
+		D16A39F31BE9220C003D830D /* JSONResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16A39F21BE9220C003D830D /* JSONResource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,7 +29,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2A7FC1F132E1F95AC32BD549 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		B2A19DA23184BAC555CCA723 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		BD0A6FF2DC17167C9DED9F3D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D10AA8941BD66E2A00C6FB9B /* Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
+		D12FDD281BEBE6510093D250 /* ImageResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageResource.swift; sourceTree = "<group>"; };
 		D13C393F1BCBF7FE0044B40D /* PopTop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PopTop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D13C39421BCBF7FE0044B40D /* PopTop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopTop.h; sourceTree = "<group>"; };
 		D13C39441BCBF7FE0044B40D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -35,6 +42,7 @@
 		D13C39501BCBF7FE0044B40D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D13C39591BCBF84B0044B40D /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 		D15D6E561BD6861A00A144A2 /* ResourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceTests.swift; sourceTree = "<group>"; };
+		D16A39F21BE9220C003D830D /* JSONResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONResource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B79E8502CC6F464D82B86F0C /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,12 +65,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3EDB42D9A09E36B62DF3CF86 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BD0A6FF2DC17167C9DED9F3D /* Pods.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5461C262BB21A3BEC32EC15A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2A7FC1F132E1F95AC32BD549 /* Pods.debug.xcconfig */,
+				B2A19DA23184BAC555CCA723 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		D13C39351BCBF7FE0044B40D = {
 			isa = PBXGroup;
 			children = (
 				D13C39411BCBF7FE0044B40D /* Source */,
 				D13C394D1BCBF7FE0044B40D /* Tests */,
 				D13C39401BCBF7FE0044B40D /* Products */,
+				5461C262BB21A3BEC32EC15A /* Pods */,
+				3EDB42D9A09E36B62DF3CF86 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -78,6 +106,8 @@
 			isa = PBXGroup;
 			children = (
 				D13C39421BCBF7FE0044B40D /* PopTop.h */,
+				D12FDD281BEBE6510093D250 /* ImageResource.swift */,
+				D16A39F21BE9220C003D830D /* JSONResource.swift */,
 				D13C39591BCBF84B0044B40D /* Manager.swift */,
 				D10AA8941BD66E2A00C6FB9B /* Resource.swift */,
 				D13C395D1BCC1D4F0044B40D /* Supporting Files */,
@@ -121,10 +151,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D13C39531BCBF7FE0044B40D /* Build configuration list for PBXNativeTarget "PopTop" */;
 			buildPhases = (
+				83314469DC64D281B418AE6F /* Check Pods Manifest.lock */,
 				D13C393A1BCBF7FE0044B40D /* Sources */,
 				D13C393B1BCBF7FE0044B40D /* Frameworks */,
 				D13C393C1BCBF7FE0044B40D /* Headers */,
 				D13C393D1BCBF7FE0044B40D /* Resources */,
+				774E3A8451B49F7D7EF18E50 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -206,13 +238,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		774E3A8451B49F7D7EF18E50 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		83314469DC64D281B418AE6F /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D13C393A1BCBF7FE0044B40D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				D10AA8951BD66E2A00C6FB9B /* Resource.swift in Sources */,
+				D12FDD291BEBE6510093D250 /* ImageResource.swift in Sources */,
 				D13C395A1BCBF84B0044B40D /* Manager.swift in Sources */,
+				D16A39F31BE9220C003D830D /* JSONResource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,6 +394,7 @@
 		};
 		D13C39541BCBF7FE0044B40D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A7FC1F132E1F95AC32BD549 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
@@ -336,7 +404,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.belly.PopTop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -347,6 +415,7 @@
 		};
 		D13C39551BCBF7FE0044B40D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B2A19DA23184BAC555CCA723 /* Pods.release.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
@@ -356,7 +425,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.belly.PopTop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
