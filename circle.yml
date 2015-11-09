@@ -3,9 +3,29 @@ dependencies:
     # this list exists because CircleCI's version of xctool might not always be the latest
     # the pre-build step forces an update to the latest
     - brew uninstall xctool && brew install --HEAD xctool
+    - git submodule update --init --recursive
+    # https://circleci.com/docs/ios#upgrading-cocoapods
+    - sudo gem install cocoapods --version 0.39.0
+    # CocoaPods sometimes has issues using caches
+    # between different versions of CocoaPods.
+    - pod setup
+    - pod install
 machine:
   xcode:
     version: "7.0"
   environment:
-    XCODE_PROJECT: PopTop.xcodeproj
+    LANG: en_US.UTF-8
+    XCODE_WORKSPACE: PopTop.xcworkspace
     XCODE_SCHEME: "PopTop"
+test:
+  override:
+    - xctool
+      -reporter pretty
+      CODE_SIGNING_REQUIRED=NO
+      CODE_SIGN_IDENTITY=
+      PROVISIONING_PROFILE=
+      -destination 'platform=iOS Simulator,name=iPad 2,OS=latest'
+      -sdk iphonesimulator
+      -workspace PopTop.xcworkspace
+      -scheme "PopTop"
+      build build-tests run-tests

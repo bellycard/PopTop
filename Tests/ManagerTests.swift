@@ -8,6 +8,7 @@
 
 import XCTest
 @testable import PopTop
+import SwiftyJSON
 
 class ManagerTests: XCTestCase {
     let manager = PopTop.Manager
@@ -26,9 +27,8 @@ class ManagerTests: XCTestCase {
     
     class ResourceWithData: Resource {
         override func data() -> (resourceData: NSData, resourceID: Int) {
-            let testInfo = ["foo": "bar"]
-            let testData = try! NSJSONSerialization.dataWithJSONObject(testInfo, options: NSJSONWritingOptions())
-            return (testData, 123)
+            let testData: JSON = [["id": "123", "foo": "bar"]]
+            return (try! testData.rawData(), 123)
         }
     }
     
@@ -137,7 +137,74 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(nameAndID.id, "ID should be nil")
     }
     
-    func testShouldCreateARegistryForGivenResource() {
+    func testGETShouldCreateIndividualResourcesFromArray() {
+        // Given
+        let professorX = try! JSON(["id": "123", "name": "Charles Xavier", "abilities": ["telepathy", "empathy", "wheelchair"], "nick-name": "Hot Wheels"]).rawData()
+        let cyclops = try! JSON(["id": "456", "name": "Scott Summers", "abilities": ["optic force blast", "spatial awareness", "red monochromacy"], "nick-name": "Four eyes"]).rawData()
+        
+        class TestResource: Resource {
+            override func data() -> (rawData: NSData?, id: Int?) {
+                let professorX = ["id": "123", "name": "Charles Xavier", "abilities": ["telepathy", "empathy", "wheelchair"], "nick-name": "Hot Wheels"]
+                let cyclops = ["id": "456", "name": "Scott Summers", "abilities": ["optic force blast", "spatial awareness", "red monochromacy"], "nick-name": "Four eyes"]
+                let testData: JSON = [professorX, cyclops]
+                
+                return (try! testData.rawData(), nil)
+            }
+        }
+        
+        let expectation = expectationWithDescription("Checking resources are created in registry")
+        let testResource = TestResource(resourceIdentifier: "/path/to/example")
+        manager.resources = [testResource]
+        NSURLProtocol.registerClass(PopTop.Manager)
+
+        // Test requests must be declared before they are used
+        
+        // 3rd network test
+        let networkTaskLastTimeForAllResources = setUpNetworkTask(NSURL(string: "http://example.com/path/to/example")!, method: "GET") { [unowned self] (data, res, err) in
+            let returnedData = JSON(data: data!)
+            
+            XCTAssertEqual(returnedData.count, self.manager.registry["/path/to/example"]!.count, "Should return all data available in cache")
+            
+            XCTAssertEqual(returnedData[0]["nick-name"].string, "Hot Wheels")
+            XCTAssertEqual(returnedData[1]["nick-name"].string, "Four eyes")
+            
+            expectation.fulfill()
+        }
+        
+        // 2nd network test
+        let networkTaskForOneResource = setUpNetworkTask(NSURL(string: "http://example.com/path/to/example/123")!, method: "GET") { [unowned self] (data, res, error) in
+            let returnedData = JSON(data: data!)
+            let returnedProfessorX = try! returnedData.rawData()
+            
+            XCTAssertEqual(returnedProfessorX, self.manager.registry["/path/to/example"]?[123], "Return data should match cached data")
+            
+            // Start 3rd network test
+            networkTaskLastTimeForAllResources.resume()
+        }
+        
+        // 1st network test
+        let networkTask = setUpNetworkTask(NSURL(string: "http://example.com/path/to/example")!, method: "GET") { [unowned self] (data, res, err) in
+            XCTAssertEqual(self.manager.registry["/path/to/example"]?[123], professorX, "123 should be created and equal to Professor X")
+            XCTAssertEqual(self.manager.registry["/path/to/example"]?[456], cyclops, "456 should be created and equal to Cyclops")
+            
+            let returnedData = JSON(data: data!)
+            let returnedProfessorX = try! returnedData[0].rawData()
+            let returnedCyclops = try! returnedData[1].rawData()
+            
+            XCTAssertEqual(returnedProfessorX, self.manager.registry["/path/to/example"]?[123], "Return data should match cached data")
+            XCTAssertEqual(returnedCyclops, self.manager.registry["/path/to/example"]?[456], "Return data should match cached data")
+            
+            // Start 2nd network test
+            networkTaskForOneResource.resume()
+        }
+        
+        // When
+        // Start the network testing chain
+        networkTask.resume()
+        waitForExpectationsWithNetworkTask(networkTask)
+    }
+    
+    func testPOSTShouldCreateARegistryForGivenResource() {
         // Given
         let expectation = expectationWithDescription("Adding resource to collection")
         let expectedResourceName = "/path/to/example"
@@ -159,14 +226,14 @@ class ManagerTests: XCTestCase {
         waitForExpectationsWithNetworkTask(networkTask)
     }
     
-    func testShouldRetrieveAResourceWithID() {
+    func testGETShouldRetrieveAResourceWithID() {
         // Given
         let expectation = expectationWithDescription("Adding resource to collection")
         let getURL = NSURL(string: "https://example.com/path/to/example/123")!
         
         XCTAssert(Manager.registry.isEmpty, "Registry should be empty to start")
         
-        let testResource = ResourceWithData(resourceIdentifier: "/path/to/example/123")
+        let testResource = ResourceWithData(resourceIdentifier: "/path/to/example")
         manager.resources = [testResource]
         NSURLProtocol.registerClass(PopTop.Manager)
         
@@ -174,7 +241,7 @@ class ManagerTests: XCTestCase {
         let networkTask = setUpNetworkTask(getURL, method: "GET") { (data, res, err) in
             // Then
             XCTAssertNotNil(data, "Returned data should be available")
-            XCTAssertFalse(Manager.registry.isEmpty, "Resources should have been created and stored")
+            XCTAssertNotNil(Manager.registry["/path/to/example"]?[123], "Resource instance should have been created and stored")
             XCTAssertNil(err, "There shouldn't be any errors")
             expectation.fulfill()
         }
@@ -186,7 +253,7 @@ class ManagerTests: XCTestCase {
     }
     
     // Skipping for now
-    func xtestShouldUpdateAResourceWithID() {
+    func xtestPUTShouldUpdateAResourceWithID() {
         // Given
         let expectation = expectationWithDescription("Adding resource to collection")
         let postURL = NSURL(string: "http://example.com/path/to/example")!
@@ -211,7 +278,7 @@ class ManagerTests: XCTestCase {
         createStoredResource(postURL, taskToResume: networkTask)
     }
     
-    func testShouldDeleteAResourceWithID() {
+    func testDELETEShouldDeleteAResourceWithID() {
         // Given
         let expectation = expectationWithDescription("Deleting resource to collection")
         let postURL = NSURL(string: "http://example.com/path/to/example")!
