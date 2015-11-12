@@ -6,8 +6,6 @@
 //  Copyright © 2015 Belly. All rights reserved.
 //
 
-import Foundation
-
 public protocol ResourceProtocol {
     /// The path to the resource that the Manager should match requests against
     var resourceIdentifier: String { get }

@@ -6,7 +6,6 @@
 //  Copyright © 2015 Belly. All rights reserved.
 //
 
-import Foundation
 import SwiftyJSON
 
 public struct JSONFromFile: ResourceProtocol {

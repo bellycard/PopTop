@@ -6,8 +6,6 @@
 //  Copyright © 2015 Belly. All rights reserved.
 //
 
-import Foundation
-
 public enum ImageType: String {
     case JPEG = "jpg"
     case PNG = "png"

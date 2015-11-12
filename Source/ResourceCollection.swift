@@ -6,8 +6,6 @@
 //  Copyright © 2015 Belly. All rights reserved.
 //
 
-import Foundation
-
 public struct ResourceCollection<KeyType: Hashable, ResourceType> {
     typealias DictionaryType = [KeyType: ResourceType]
 
