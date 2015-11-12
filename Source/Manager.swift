@@ -64,13 +64,13 @@ public class Manager: NSURLProtocol {
     // MARK: - Class
 
     /// Receives a variable amount of ResourceProtocol types that are queried when receiving an HTTP request
-    static func addResources(resourcesToAdd: ResourceProtocol...) {
+    static public func addResources(resourcesToAdd: ResourceProtocol...) {
         for resource in resourcesToAdd {
             resources[resource.resourceIdentifier] = resource
         }
     }
 
-    static func removeResources() {
+    static public func removeResources() {
         resources.removeAll()
     }
     
