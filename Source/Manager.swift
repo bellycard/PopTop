@@ -94,8 +94,6 @@ public class Manager: NSURLProtocol {
             if Int(component) != nil {
                 // if it does, remove the number and replace with predetermined key
                 pathComponents[index] = ":id"
-                pathComponents.removeFirst()
-                break
             }
         }
 
