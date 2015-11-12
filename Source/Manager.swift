@@ -47,11 +47,11 @@ public class Manager: NSURLProtocol {
         /// Data that will be returned in the HTTP request.
         let dataToReturn = resource!.data(request)
 
-//        let response = NSHTTPURLResponse(URL: request.URL!, statusCode: 200, HTTPVersion: "HTTP/1.1", headerFields: ["Content-Type": resource!.contentType])!
+        let response = NSHTTPURLResponse(URL: request.URL!, statusCode: 200, HTTPVersion: "HTTP/1.1", headerFields: ["Content-Type": resource!.contentType])!
 
-//        client?.URLProtocol(self, didReceiveResponse: response, cacheStoragePolicy: .NotAllowed)
-//        client?.URLProtocol(self, didLoadData: dataToReturn)
-//        client?.URLProtocolDidFinishLoading(self)
+        client?.URLProtocol(self, didReceiveResponse: response, cacheStoragePolicy: .NotAllowed)
+        client?.URLProtocol(self, didLoadData: dataToReturn)
+        client?.URLProtocolDidFinishLoading(self)
     }
     
     /// Because PopTop always returns an object it is acceptable to leave this empty.
