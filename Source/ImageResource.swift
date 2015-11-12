@@ -13,10 +13,12 @@ public enum ImageType: String {
     case PNG = "png"
 }
 
-public class ImageResource: Resource {
+public struct ImageResource: ResourceProtocol {
+    public let contentType: String
     let imageName: String
     let imageType: ImageType
     let imageRepresentation: NSData?
+    public let resourceIdentifier: String
     
     public init(resourceIdentifier: String, imageName: String, imageType: ImageType) {
         self.imageName = imageName
@@ -28,11 +30,12 @@ public class ImageResource: Resource {
         case .PNG:
             self.imageRepresentation = UIImagePNGRepresentation(UIImage(named: imageName)!)
         }
-        
-        super.init(resourceIdentifier: resourceIdentifier, contentType: "image/\(imageType)", isREST: false)
+
+        self.contentType = "image/\(imageType)"
+        self.resourceIdentifier = resourceIdentifier
     }
     
-    override public func data() -> (resourceData: NSData?, resourceID: Int?) {
-        return (imageRepresentation, nil)
+    public func data(request: NSURLRequest) -> NSData {
+        return imageRepresentation!
     }
 }
