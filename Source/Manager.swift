@@ -83,7 +83,6 @@ public class Manager: NSURLProtocol {
         var name: String?
         var id: Int?
         let separator = "/"
-        var resourceName: String?
         
         if let idProvided = Int(url.lastPathComponent!) {
             id = idProvided
@@ -96,7 +95,6 @@ public class Manager: NSURLProtocol {
                 // if it does, remove the number and replace with predetermined key
                 pathComponents[index] = ":id"
                 pathComponents.removeFirst()
-                resourceName = "/\(pathComponents.joinWithSeparator("/"))"
                 break
             }
         }
