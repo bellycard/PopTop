@@ -21,25 +21,7 @@ public class Manager: NSURLProtocol {
     // MARK: - Protocol implementation
     // Class
     override public class func canInitWithRequest(request: NSURLRequest) -> Bool {
-        var components = request.URL?.pathComponents
-        var resourceName: String?
-
-        // Check if the URL has an ID within it -> /api/path/to/123/example
-        for (index, component) in components!.enumerate() {
-            if Int(component) != nil {
-                // if it does, remove the number and replace with predetermined key
-                components![index] = ":id"
-                components!.removeFirst()
-                resourceName = "/\(components!.joinWithSeparator("/"))"
-                break
-            }
-        }
-
-        if resourceName == nil {
-            resourceName = resourceNameAndIDFromURL(request.URL!).name
-        }
-
-        if resources[resourceName!] != nil {
+        if let requestName = resourceNameAndIDFromURL(request.URL!).name, _ = resources[requestName] {
             return true
         }
         
@@ -101,12 +83,24 @@ public class Manager: NSURLProtocol {
         var name: String?
         var id: Int?
         let separator = "/"
+        var resourceName: String?
         
         if let idProvided = Int(url.lastPathComponent!) {
             id = idProvided
             pathComponents.removeLast()
         }
-        
+
+        // Check if the URL has an ID within it -> /api/path/to/123/example
+        for (index, component) in pathComponents.enumerate() {
+            if Int(component) != nil {
+                // if it does, remove the number and replace with predetermined key
+                pathComponents[index] = ":id"
+                pathComponents.removeFirst()
+                resourceName = "/\(pathComponents.joinWithSeparator("/"))"
+                break
+            }
+        }
+
         // prevents "//" from occurring when joining the path components
         if pathComponents.first == separator {
             pathComponents.removeFirst()
