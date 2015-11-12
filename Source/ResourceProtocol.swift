@@ -17,9 +17,7 @@ public protocol ResourceProtocol {
      NSData object that will be returned in the request representing the Resource instance.
      Subclasses are required to create their own implementation
 
-     - Returns:
-     - rawData: NSData representation of object to be returned
-     - id: Identifier used for storing data in the manager
+     - Returns: NSData representation of object to be returned
      */
     func data(request: NSURLRequest) -> NSData
 }
