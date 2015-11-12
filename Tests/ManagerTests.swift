@@ -69,6 +69,20 @@ class ManagerTests: XCTestCase {
         XCTAssertTrue(result, "PopTop should handle a known host")
     }
 
+    func testShouldReturnTrueForPathsWithID() {
+        // Given
+        let testResource = ResourceWithData(resourceIdentifier: "/path/to/:id/example")
+        manager.addResources(testResource)
+        NSURLProtocol.registerClass(PopTop.Manager)
+        let testRequest = NSURLRequest(URL: NSURL(string: "https://api.example.com/path/to/123/example")!)
+
+        // When
+        let result = manager.canInitWithRequest(testRequest)
+
+        // Then
+        XCTAssertTrue(result, "PopTop should handle :id in paths")
+    }
+
     func testShouldReturnFalseForUnknownPath() {
         // Given
         manager.addResources(ResourceWithData(resourceIdentifier: "/path/to/first"), ResourceWithData(resourceIdentifier: "/path/to/second"))
