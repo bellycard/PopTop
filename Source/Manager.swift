@@ -86,11 +86,17 @@ public class Manager: NSURLProtocol {
         
         if let idProvided = Int(url.lastPathComponent!) {
             id = idProvided
-            // Remove the ID from the route so the path to the resource can become its key like so:
-            // /users/123/pets/456 -> ["/users/123/pets": ["456": NSData]]
             pathComponents.removeLast()
         }
-        
+
+        // Check if the URL has an ID within it -> /api/path/to/123/example
+        for (index, component) in pathComponents.enumerate() {
+            if Int(component) != nil {
+                // if it does, remove the number and replace with predetermined key
+                pathComponents[index] = ":id"
+            }
+        }
+
         // prevents "//" from occurring when joining the path components
         if pathComponents.first == separator {
             pathComponents.removeFirst()
