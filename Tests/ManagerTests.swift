@@ -128,6 +128,31 @@ class ManagerTests: XCTestCase {
 
         // Then
         XCTAssertEqual(nameAndID.name!, "/path/to/resource", "Relative path should be returned")
-        XCTAssertNil(nameAndID.id, "ID should be nil")
+        XCTAssertNil(nameAndID.ids, "ID should be nil")
+    }
+
+    func testResourceNameAndIDFromURLShouldReturnSingleID() {
+        // Given
+        let url = NSURL(string: "/path/123/to/resource")
+
+        // When
+        let nameAndIDs = Manager.resourceNameAndIDFromURL(url!)
+
+        // Then
+        XCTAssertEqual(nameAndIDs.name!, "/path/:id/to/resource", "Relative path should be returned")
+        XCTAssertEqual(nameAndIDs.ids!, [123], "Correct ID should be returned")
+
+    }
+
+    func testResourceNameAndIDFromURLShouldReturnMultipleIDs() {
+        // Given
+        let url = NSURL(string: "/path/123/to/resource/456")
+
+        // When
+        let nameAndIDs = Manager.resourceNameAndIDFromURL(url!)
+
+        // Then
+        XCTAssertEqual(nameAndIDs.name!, "/path/:id/to/resource/:id", "Relative path should be returned")
+        XCTAssertEqual(nameAndIDs.ids!, [123, 456], "Two IDs, in order, should be returned")
     }
 }
