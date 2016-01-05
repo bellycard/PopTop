@@ -86,8 +86,9 @@ public class Manager: NSURLProtocol {
 
         // Check if the URL has an ID within it -> /api/path/to/123/example
         for (index, component) in pathComponents.enumerate() {
+
+            // if it does, add it to the IDs array to be returned
             if let id = Int(component) {
-                // if it does, add it to the IDs array to be returned
                 if ids?.append(id) == nil {
                     ids = [id]
                 }
