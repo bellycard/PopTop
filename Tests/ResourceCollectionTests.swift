@@ -17,7 +17,7 @@ class ResourceCollectionTests: XCTestCase {
             let resourceIdentifier = "/path/to/resource"
             let contentType = "fake type"
 
-            func data(request: NSURLRequest) -> NSData {
+            func data(request: NSURLRequest, resourceDetails: (name: String?, ids: [Int]?)) -> NSData {
                 return NSData()
             }
         }
@@ -38,7 +38,7 @@ class ResourceCollectionTests: XCTestCase {
             let resourceIdentifier = "/path/to/resource"
             let contentType = "fake type"
 
-            func data(request: NSURLRequest) -> NSData {
+            func data(request: NSURLRequest, resourceDetails: (name: String?, ids: [Int]?)) -> NSData {
                 return NSData()
             }
         }
@@ -47,7 +47,7 @@ class ResourceCollectionTests: XCTestCase {
             let resourceIdentifier = "/path/to/second/resource"
             let contentType = "test content type"
             
-            func data(request: NSURLRequest) -> NSData {
+            func data(request: NSURLRequest, resourceDetails: (name: String?, ids: [Int]?)) -> NSData {
                 return NSData()
             }
         }
@@ -71,7 +71,7 @@ class ResourceCollectionTests: XCTestCase {
             let resourceIdentifier = "/path/to/resource"
             let contentType = "fake type"
 
-            func data(request: NSURLRequest) -> NSData {
+            func data(request: NSURLRequest, resourceDetails: (name: String?, ids: [Int]?)) -> NSData {
                 return NSData()
             }
         }

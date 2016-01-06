@@ -19,7 +19,7 @@ public struct JSONFromFile: ResourceProtocol {
         self.resourceIdentifier = resourceIdentifier
     }
 
-    public func data(request: NSURLRequest) -> NSData {
+    public func data(request: NSURLRequest, resourceDetails: (name: String?, ids: [Int]?)) -> NSData {
         return try! json.rawData()
     }
 }
