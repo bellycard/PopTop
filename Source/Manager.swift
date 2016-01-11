@@ -32,7 +32,7 @@ public class Manager: NSURLProtocol {
 
     override public func startLoading() {
         /// A tuple of (key, id) that will be used within the registry dict based on the URL path
-        /// `/path/to/resource/123` -> `("/path/to/resource", 123)`
+        /// `/path/to/resource/123` -> `(name: "/path/to/resource", ids: [123])`
         let pathToResourceParts = Manager.resourceNameAndIDFromURL(request.URL!)
         
         /// The Resource itself, if available.
@@ -44,7 +44,7 @@ public class Manager: NSURLProtocol {
         precondition(resource != nil, "Resource not found")
 
         /// Data that will be returned in the HTTP request.
-        let dataToReturn = resource!.data(request)
+        let dataToReturn = resource!.data(request, resourceDetails: pathToResourceParts)
 
         let response = NSHTTPURLResponse(URL: request.URL!, statusCode: 200, HTTPVersion: "HTTP/1.1", headerFields: ["Content-Type": resource!.contentType])!
 

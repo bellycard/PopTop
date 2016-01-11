@@ -34,8 +34,9 @@ class ManagerTests: XCTestCase {
             self.resourceIdentifier = resourceIdentifier
         }
 
-        func data(request: NSURLRequest) -> NSData {
-            let testData: JSON = [["id": "123", "foo": "bar"]]
+        func data(request: NSURLRequest, resourceDetails: (name: String?, ids: [Int]?)) -> NSData {
+            let id = resourceDetails.ids!.first!
+            let testData: JSON = [["id": id, "foo": "bar"]]
             return try! testData.rawData()
         }
     }
