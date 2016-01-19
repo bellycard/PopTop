@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.author       = { 'AJ Self': 'aj.self3@gmail.com' }
   s.platform     = :ios, '8.0'
 
-  s.source       = { git: 'https://8cba37ce5291eb124ff7881f09ebff6b215fd5c2@github.com/bellycard/PopTop.git', tag: s.version.to_s }
+  s.source       = { git: 'https://github.com/bellycard/PopTop.git', tag: s.version.to_s }
 
   s.dependency 'SwiftyJSON', '~> 2.3'
 
