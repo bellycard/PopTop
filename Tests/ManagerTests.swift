@@ -34,7 +34,7 @@ class ManagerTests: XCTestCase {
             self.resourceIdentifier = resourceIdentifier
         }
 
-        func data(request: NSURLRequest, resourceDetails: (name: String?, ids: [Int]?)) -> NSData {
+        func data(request: NSURLRequest, resourceDetails: (ids: [Int]?, query: [String: [String]]?)) -> NSData {
             let id = resourceDetails.ids!.first!
             let testData: JSON = [["id": id, "foo": "bar"]]
             return try! testData.rawData()
@@ -51,12 +51,32 @@ class ManagerTests: XCTestCase {
     // MARK: - Class Tests
 
     func testShouldContainCollectionOfResources() {
+        // Given
         let firstResource = ResourceWithData(resourceIdentifier: "/path/to/first")
         let secondResource = ResourceWithData(resourceIdentifier: "/path/to/second")
-        
+
+        // When
         manager.addResources(firstResource, secondResource)
 
+        // Then
         XCTAssertEqual(manager.count, 2, "Resources should be stored")
+    }
+
+    func testShouldRemoveASingleResource() {
+        // Given
+        let firstResource = ResourceWithData(resourceIdentifier: "/path/to/first")
+
+        // When
+        manager.addResources(firstResource)
+
+        // Then
+        XCTAssertEqual(manager.count, 1, "Should contain a resource")
+
+        // When
+        manager.removeResource(firstResource)
+
+        // Then
+        XCTAssertEqual(manager.count, 0, "Should be empty")
     }
     
     func testShouldReturnTrueForMatchedPath() {
@@ -74,8 +94,10 @@ class ManagerTests: XCTestCase {
         // Given
         let testResource = ResourceWithData(resourceIdentifier: "/path/to/:id/example")
         let testResource2 = ResourceWithData(resourceIdentifier: "/path/to/:id/example/with/:id/another")
+
         NSURLProtocol.registerClass(PopTop.Manager)
         manager.addResources(testResource, testResource2)
+
         let testRequest = NSURLRequest(URL: NSURL(string: "https://api.example.com/path/to/123/example")!)
         let testRequest2 = NSURLRequest(URL: NSURL(string: "https://api.example.com/path/to/123/example/with/456/another")!)
 
@@ -120,40 +142,51 @@ class ManagerTests: XCTestCase {
         XCTAssertTrue(secondResult, "PopTop should allow the addition of more URLs")
     }
     
-    func testResourceNameAndIDFromURLShouldReturnNameAndNil() {
+    func testResourceArtifactsFromURLShouldReturnNameAndNil() {
         // Given
         let url = NSURL(string: "/path/to/resource")
 
         // When
-        let nameAndID = Manager.resourceNameAndIDFromURL(url!)
+        let resourceArtifcats = Manager.resourceArtifactsFromURL(url!)
 
         // Then
-        XCTAssertEqual(nameAndID.name!, "/path/to/resource", "Relative path should be returned")
-        XCTAssertNil(nameAndID.ids, "ID should be nil")
+        XCTAssertEqual(resourceArtifcats.name!, "/path/to/resource", "Relative path should be returned")
+        XCTAssertNil(resourceArtifcats.ids, "ID should be nil")
+        XCTAssertNil(resourceArtifcats.query, "Query should be nil")
     }
 
-    func testResourceNameAndIDFromURLShouldReturnSingleID() {
+    func testResourceArtifactsFromURLShouldReturnSingleID() {
         // Given
         let url = NSURL(string: "/path/123/to/resource")
 
         // When
-        let nameAndIDs = Manager.resourceNameAndIDFromURL(url!)
+        let resourceArtifacts = Manager.resourceArtifactsFromURL(url!)
 
         // Then
-        XCTAssertEqual(nameAndIDs.name!, "/path/:id/to/resource", "Relative path should be returned")
-        XCTAssertEqual(nameAndIDs.ids!, [123], "Correct ID should be returned")
+        XCTAssertEqual(resourceArtifacts.ids!, [123], "Correct ID should be returned")
 
     }
 
-    func testResourceNameAndIDFromURLShouldReturnMultipleIDs() {
+    func testResourceArtifactsFromURLShouldReturnMultipleIDs() {
         // Given
         let url = NSURL(string: "/path/123/to/resource/456")
 
         // When
-        let nameAndIDs = Manager.resourceNameAndIDFromURL(url!)
+        let resourceArtifacts = Manager.resourceArtifactsFromURL(url!)
 
         // Then
-        XCTAssertEqual(nameAndIDs.name!, "/path/:id/to/resource/:id", "Relative path should be returned")
-        XCTAssertEqual(nameAndIDs.ids!, [123, 456], "Two IDs, in order, should be returned")
+        XCTAssertEqual(resourceArtifacts.ids!, [123, 456], "Two IDs, in order, should be returned")
+    }
+
+    func testResourceArtifactsFromURLShouldReturnQueryParams() {
+        // Given
+        let url = NSURL(string: "/path/to/123/resource?foo=bar&baz=quux&foo=biz")
+
+        // When
+        let resourceArtifacts = Manager.resourceArtifactsFromURL(url!)
+
+        // Then
+        XCTAssertNotNil(resourceArtifacts.query, "Query should be populated")
+        XCTAssertEqual(resourceArtifacts.query!, ["foo": ["bar", "biz"], "baz": ["quux"]], "Query dictionary should be correct")
     }
 }

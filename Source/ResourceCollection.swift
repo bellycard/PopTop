@@ -28,4 +28,8 @@ public struct ResourceCollection<KeyType: Hashable, ResourceType> {
     mutating func removeAll() {
         dictionary.removeAll()
     }
+
+    mutating func remove(key: KeyType) -> ResourceType? {
+        return dictionary.removeValueForKey(key)
+    }
 }

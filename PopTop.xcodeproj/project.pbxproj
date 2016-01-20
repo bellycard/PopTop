@@ -38,9 +38,9 @@
 		D13C39421BCBF7FE0044B40D /* PopTop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopTop.h; sourceTree = "<group>"; };
 		D13C39441BCBF7FE0044B40D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D13C39491BCBF7FE0044B40D /* PopTopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PopTopTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D13C394E1BCBF7FE0044B40D /* ManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerTests.swift; sourceTree = "<group>"; };
+		D13C394E1BCBF7FE0044B40D /* ManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ManagerTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		D13C39501BCBF7FE0044B40D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D13C39591BCBF84B0044B40D /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
+		D13C39591BCBF84B0044B40D /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Manager.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		D16A39F21BE9220C003D830D /* JSONFromFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONFromFile.swift; sourceTree = "<group>"; };
 		D1F38CA91BF279DC00EC37F7 /* ResourceCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceCollection.swift; sourceTree = "<group>"; };
 		D1F38CAB1BF27A2400EC37F7 /* ResourceCollectionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceCollectionTests.swift; sourceTree = "<group>"; };
