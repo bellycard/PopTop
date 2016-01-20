@@ -39,9 +39,6 @@ public class Manager: NSURLProtocol {
         /// This is used to create new represetnations of a requested resource
         /// requested URL: `/path/to/resource/123` -> resource.data().rawData == {"id": 123, "foo": "bar"}
         let resource = Manager.resources[pathToResourceParts.name!]
-        
-        // Bail out if the resource can't be found. This could happen if a resourceIdentifier was not properly set.
-        precondition(resource != nil, "Resource not found")
 
         /// Data that will be returned in the HTTP request.
         let dataToReturn = resource!.data(request, resourceDetails: pathToResourceParts)
