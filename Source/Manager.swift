@@ -73,10 +73,12 @@ public class Manager: NSURLProtocol {
         }
     }
 
-    static public func removeResource(resource: ResourceProtocol) -> ResourceProtocol? {
-        return resources.remove(resource.resourceIdentifier)
+    /// Remove a resource from the manager
+    static public func removeResource(resource: ResourceProtocol) {
+        resources.remove(resource.resourceIdentifier)
     }
 
+    /// Remove all resources from the manager
     static public func removeResources() {
         resources.removeAll()
     }

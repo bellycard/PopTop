@@ -11,6 +11,7 @@ public struct ResourceCollection<KeyType: Hashable, ResourceType> {
 
     private var dictionary = DictionaryType()
 
+    /// Returns the number of items currently in the collection
     var count: Int {
         return dictionary.count
     }
@@ -25,10 +26,12 @@ public struct ResourceCollection<KeyType: Hashable, ResourceType> {
         }
     }
 
+    /// Removes all items in the collection
     mutating func removeAll() {
         dictionary.removeAll()
     }
 
+    /// Remove and return return the element with provided key
     mutating func remove(key: KeyType) -> ResourceType? {
         return dictionary.removeValueForKey(key)
     }
