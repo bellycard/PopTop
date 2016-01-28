@@ -17,7 +17,7 @@ class ResourceCollectionTests: XCTestCase {
             let resourceIdentifier = "/path/to/resource"
             let contentType = "fake type"
 
-            func data(request: NSURLRequest, resourceDetails: (ids: [Int]?, query: [String: [String]]?)) -> NSData {
+            func data(request: NSURLRequest, resourceArtifacts: ResourceArtifacts) -> NSData {
                 return NSData()
             }
         }
@@ -38,7 +38,7 @@ class ResourceCollectionTests: XCTestCase {
             let resourceIdentifier = "/path/to/resource"
             let contentType = "fake type"
 
-            func data(request: NSURLRequest, resourceDetails: (ids: [Int]?, query: [String: [String]]?)) -> NSData {
+            func data(request: NSURLRequest, resourceArtifacts: ResourceArtifacts) -> NSData {
                 return NSData()
             }
         }
@@ -47,7 +47,7 @@ class ResourceCollectionTests: XCTestCase {
             let resourceIdentifier = "/path/to/second/resource"
             let contentType = "test content type"
             
-            func data(request: NSURLRequest, resourceDetails: (ids: [Int]?, query: [String: [String]]?)) -> NSData {
+            func data(request: NSURLRequest, resourceArtifacts: ResourceArtifacts) -> NSData {
                 return NSData()
             }
         }
@@ -71,11 +71,10 @@ class ResourceCollectionTests: XCTestCase {
             let resourceIdentifier = "/path/to/resource"
             let contentType = "fake type"
 
-            func data(request: NSURLRequest, resourceDetails: (ids: [Int]?, query: [String: [String]]?)) -> NSData {
+            func data(request: NSURLRequest, resourceArtifacts: ResourceArtifacts) -> NSData {
                 return NSData()
             }
         }
-
 
         let testResource = TestResource()
         var resourceCollection = ResourceCollection<String, ResourceProtocol>()
@@ -100,7 +99,7 @@ class ResourceCollectionTests: XCTestCase {
             let resourceIdentifier = "/path/to/resource"
             let contentType = "fake type"
 
-            func data(request: NSURLRequest, resourceDetails: (ids: [Int]?, query: [String: [String]]?)) -> NSData {
+            func data(request: NSURLRequest, resourceArtifacts: ResourceArtifacts) -> NSData {
                 return NSData()
             }
         }

@@ -8,11 +8,13 @@
 
 import SwiftyJSON
 
-public class Manager: NSURLProtocol {
-    typealias queryArtifacts = [String: [String]]?
-    typealias IDArtifacts = [Int]?
-    typealias nameArtifact = String?
+// Module wide types
+public typealias QueryArtifacts = [String: [String]]
+public typealias IDArtifacts = [Int]
+public typealias NameArtifact = String
+public typealias ResourceArtifacts = (ids: IDArtifacts?, query: QueryArtifacts?)
 
+public class Manager: NSURLProtocol {
     // MARK: - Properties
     
     // Holds instances of Resource subclasses and are used to check if Manager can handle an incoming request
@@ -39,13 +41,13 @@ public class Manager: NSURLProtocol {
         /// `/path/to/resource/123` -> `(name: "/path/to/resource", ids: [123], query: ["foo": ["bar"]])`
         let resourceArtifacts = Manager.resourceArtifactsFromURL(request.URL!)
         
-        /// The Resource itself, if available.
+        /// The Resource itself
         /// This is used to create new represetnations of a requested resource
         let resource = Manager.resources[resourceArtifacts.name!]
 
         /// Data that will be returned in the HTTP response.
         /// The `name` is not returned as it is identicical to the `resourceIdentifier` on the `resource` instance
-        let dataToReturn = resource!.data(request, resourceDetails: (ids: resourceArtifacts.ids, query: resourceArtifacts.query))
+        let dataToReturn = resource!.data(request, resourceArtifacts: (ids: resourceArtifacts.ids, query: resourceArtifacts.query))
 
         let response = NSHTTPURLResponse(URL: request.URL!, statusCode: 200, HTTPVersion: "HTTP/1.1", headerFields: ["Content-Type": resource!.contentType])!
 
@@ -83,8 +85,11 @@ public class Manager: NSURLProtocol {
     
     /// Normalize a path which can be used as a Resource Identifier and requested resource IDs, if available.
     /// - Returns: "/path/to/resource/123?foo=bar&baz=quux" -> ("/path/to/resource/", 123, ["foo": ["bar"], "baz": ["quux"])
-    static func resourceArtifactsFromURL(url: NSURL) -> (name: nameArtifact, ids: IDArtifacts, query: queryArtifacts) {
-        var pathComponents = url.pathComponents!
+    static func resourceArtifactsFromURL(url: NSURL) -> (name: NameArtifact?, ids: IDArtifacts?, query: QueryArtifacts?) {
+        guard var pathComponents = url.pathComponents else {
+            return (name: nil, ids: nil, query: nil)
+        }
+
         var name: String?
         var ids = [Int]?()
         let separator = "/"
@@ -120,27 +125,26 @@ public class Manager: NSURLProtocol {
 
     // inspired by https://gist.github.com/freerunnering/1215df277d750af71887
     /// Return a dictionary with arrays populated with the values of query parameters. URLs allow keys to be declared multiple times, hence the array container.
-    static func queryDictionaryFromURL(url: NSURL) -> queryArtifacts {
-        if let query = url.query {
-            var queryDict = [String: [String]]()
+    static func queryDictionaryFromURL(url: NSURL) -> QueryArtifacts? {
+        guard let query = url.query else { return nil }
 
-            for kVString in query.componentsSeparatedByString("&") {
-                let parts = kVString.componentsSeparatedByString("=")
+        var queryDict = [String: [String]]()
 
-                guard parts.count > 1 else { continue }
+        for kVString in query.componentsSeparatedByString("&") {
+            let parts = kVString.componentsSeparatedByString("=")
 
-                let key = parts.first!.stringByRemovingPercentEncoding!
-                let value = parts.last!.stringByRemovingPercentEncoding!
-                var values = queryDict[key] ?? [String]()
+            guard parts.count > 1 else { continue }
 
+            let key = parts.first!.stringByRemovingPercentEncoding!
+            let value = parts.last!.stringByRemovingPercentEncoding!
+            var values = queryDict[key] ?? [String]()
+
+            if !value.isBlank {
                 values.append(value)
                 queryDict[key] = values
             }
-
-            return queryDict
         }
 
-        // Query missing
-        return nil
+        return queryDict
     }
 }

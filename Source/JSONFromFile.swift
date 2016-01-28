@@ -23,7 +23,7 @@ public class JSONFromFile: ResourceProtocol {
         self.jsonFileName = jsonFileName
     }
 
-    public func data(request: NSURLRequest, resourceDetails: (ids: [Int]?, query: [String: [String]]?)) -> NSData {
+    public func data(request: NSURLRequest, resourceArtifacts: ResourceArtifacts) -> NSData {
         return try! json.rawData()
     }
 }

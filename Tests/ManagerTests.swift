@@ -34,8 +34,8 @@ class ManagerTests: XCTestCase {
             self.resourceIdentifier = resourceIdentifier
         }
 
-        func data(request: NSURLRequest, resourceDetails: (ids: [Int]?, query: [String: [String]]?)) -> NSData {
-            let id = resourceDetails.ids!.first!
+        func data(request: NSURLRequest, resourceArtifacts: ResourceArtifacts) -> NSData {
+            let id = resourceArtifacts.ids!.first!
             let testData: JSON = [["id": id, "foo": "bar"]]
             return try! testData.rawData()
         }
@@ -188,5 +188,29 @@ class ManagerTests: XCTestCase {
         // Then
         XCTAssertNotNil(resourceArtifacts.query, "Query should be populated")
         XCTAssertEqual(resourceArtifacts.query!, ["foo": ["bar", "biz"], "baz": ["quux"]], "Query dictionary should be correct")
+    }
+
+    func testResourceArtifactsFromURLShouldNotReturnKeyForInvalidQueryParam() {
+        // Given
+        let url = NSURL(string: "/path/to/123/resource?foo=&bar=baz&123!!")
+
+        // When
+        let resourceArtifacts = Manager.resourceArtifactsFromURL(url!)
+
+        // Then
+        XCTAssertEqual(resourceArtifacts.query!, ["bar": ["baz"]], "Returned dictionary should only have one value")
+    }
+
+    func testResourceArtifactsFromURLShouldReturnNilForEmptyNSURL() {
+        // Given
+        let url = NSURL(string: "")
+
+        // When
+        let resourceArtifacts = Manager.resourceArtifactsFromURL(url!)
+
+        // Then
+        XCTAssertNil(resourceArtifacts.ids)
+        XCTAssertNil(resourceArtifacts.name)
+        XCTAssertNil(resourceArtifacts.query)
     }
 }

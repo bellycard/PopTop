@@ -33,7 +33,7 @@ public struct ImageResource: ResourceProtocol {
         self.resourceIdentifier = resourceIdentifier
     }
     
-    public func data(request: NSURLRequest, resourceDetails: (ids: [Int]?, query: [String: [String]]?)) -> NSData {
+    public func data(request: NSURLRequest, resourceArtifacts: ResourceArtifacts) -> NSData {
         return imageRepresentation!
     }
 }
