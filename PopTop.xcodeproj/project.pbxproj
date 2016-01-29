@@ -13,6 +13,7 @@
 		D13C39431BCBF7FE0044B40D /* PopTop.h in Headers */ = {isa = PBXBuildFile; fileRef = D13C39421BCBF7FE0044B40D /* PopTop.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D13C394A1BCBF7FE0044B40D /* PopTop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13C393F1BCBF7FE0044B40D /* PopTop.framework */; };
 		D13C395A1BCBF84B0044B40D /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13C39591BCBF84B0044B40D /* Manager.swift */; };
+		D1403FA51C5BC54E003D4631 /* String+IsBlankTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1403FA41C5BC54E003D4631 /* String+IsBlankTests.swift */; };
 		D16A39F31BE9220C003D830D /* JSONFromFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16A39F21BE9220C003D830D /* JSONFromFile.swift */; };
 		D195252F1C52D2100006442D /* String+IsBlank.swift in Sources */ = {isa = PBXBuildFile; fileRef = D195252E1C52D2100006442D /* String+IsBlank.swift */; };
 		D1F38CAA1BF279DC00EC37F7 /* ResourceCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F38CA91BF279DC00EC37F7 /* ResourceCollection.swift */; };
@@ -42,6 +43,7 @@
 		D13C394E1BCBF7FE0044B40D /* ManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ManagerTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		D13C39501BCBF7FE0044B40D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D13C39591BCBF84B0044B40D /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Manager.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		D1403FA41C5BC54E003D4631 /* String+IsBlankTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+IsBlankTests.swift"; sourceTree = "<group>"; };
 		D16A39F21BE9220C003D830D /* JSONFromFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONFromFile.swift; sourceTree = "<group>"; };
 		D195252E1C52D2100006442D /* String+IsBlank.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+IsBlank.swift"; sourceTree = "<group>"; };
 		D1F38CA91BF279DC00EC37F7 /* ResourceCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceCollection.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			children = (
 				D13C394E1BCBF7FE0044B40D /* ManagerTests.swift */,
 				D1F38CAB1BF27A2400EC37F7 /* ResourceCollectionTests.swift */,
+				D1403FA41C5BC54E003D4631 /* String+IsBlankTests.swift */,
 				D13C39501BCBF7FE0044B40D /* Info.plist */,
 			);
 			path = Tests;
@@ -297,6 +300,7 @@
 			files = (
 				D13BC59B1BD6954200336CFF /* ManagerTests.swift in Sources */,
 				D1F38CAC1BF27A2400EC37F7 /* ResourceCollectionTests.swift in Sources */,
+				D1403FA51C5BC54E003D4631 /* String+IsBlankTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -27,7 +27,9 @@ public class Manager: NSURLProtocol {
     // MARK: - Protocol implementation
     // Class
     override public class func canInitWithRequest(request: NSURLRequest) -> Bool {
-        if let requestName = resourceArtifactsFromURL(request.URL!).name, _ = resources[requestName] {
+        let requestName = resourceArtifactsFromURL(request.URL!)!.name
+
+        if resources[requestName] != nil {
             return true
         }
         
@@ -43,11 +45,11 @@ public class Manager: NSURLProtocol {
         
         /// The Resource itself
         /// This is used to create new represetnations of a requested resource
-        let resource = Manager.resources[resourceArtifacts.name!]
+        let resource = Manager.resources[resourceArtifacts!.name]
 
         /// Data that will be returned in the HTTP response.
         /// The `name` is not returned as it is identicical to the `resourceIdentifier` on the `resource` instance
-        let dataToReturn = resource!.data(request, resourceArtifacts: (ids: resourceArtifacts.ids, query: resourceArtifacts.query))
+        let dataToReturn = resource!.data(request, resourceArtifacts: (ids: resourceArtifacts!.ids, query: resourceArtifacts!.query))
 
         let response = NSHTTPURLResponse(URL: request.URL!, statusCode: 200, HTTPVersion: "HTTP/1.1", headerFields: ["Content-Type": resource!.contentType])!
 
@@ -87,10 +89,8 @@ public class Manager: NSURLProtocol {
     
     /// Normalize a path which can be used as a Resource Identifier and requested resource IDs, if available.
     /// - Returns: "/path/to/resource/123?foo=bar&baz=quux" -> ("/path/to/resource/", 123, ["foo": ["bar"], "baz": ["quux"])
-    static func resourceArtifactsFromURL(url: NSURL) -> (name: NameArtifact?, ids: IDArtifacts?, query: QueryArtifacts?) {
-        guard var pathComponents = url.pathComponents else {
-            return (name: nil, ids: nil, query: nil)
-        }
+    static func resourceArtifactsFromURL(url: NSURL) -> (name: NameArtifact, ids: IDArtifacts?, query: QueryArtifacts?)? {
+        guard var pathComponents = url.pathComponents else { return nil }
 
         var name: String?
         var ids = [Int]?()
@@ -122,7 +122,7 @@ public class Manager: NSURLProtocol {
 
         let query = queryDictionaryFromURL(url)
         
-        return (name, ids, query)
+        return (name!, ids, query)
     }
 
     // inspired by https://gist.github.com/freerunnering/1215df277d750af71887
@@ -130,7 +130,7 @@ public class Manager: NSURLProtocol {
     static func queryDictionaryFromURL(url: NSURL) -> QueryArtifacts? {
         guard let query = url.query else { return nil }
 
-        var queryDict = [String: [String]]()
+        var queryDict = QueryArtifacts()
 
         for kVString in query.componentsSeparatedByString("&") {
             let parts = kVString.componentsSeparatedByString("=")

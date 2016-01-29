@@ -150,9 +150,9 @@ class ManagerTests: XCTestCase {
         let resourceArtifcats = Manager.resourceArtifactsFromURL(url!)
 
         // Then
-        XCTAssertEqual(resourceArtifcats.name!, "/path/to/resource", "Relative path should be returned")
-        XCTAssertNil(resourceArtifcats.ids, "ID should be nil")
-        XCTAssertNil(resourceArtifcats.query, "Query should be nil")
+        XCTAssertEqual(resourceArtifcats!.name, "/path/to/resource", "Relative path should be returned")
+        XCTAssertNil(resourceArtifcats!.ids, "ID should be nil")
+        XCTAssertNil(resourceArtifcats!.query, "Query should be nil")
     }
 
     func testResourceArtifactsFromURLShouldReturnSingleID() {
@@ -163,7 +163,7 @@ class ManagerTests: XCTestCase {
         let resourceArtifacts = Manager.resourceArtifactsFromURL(url!)
 
         // Then
-        XCTAssertEqual(resourceArtifacts.ids!, [123], "Correct ID should be returned")
+        XCTAssertEqual(resourceArtifacts!.ids!, [123], "Correct ID should be returned")
 
     }
 
@@ -175,7 +175,7 @@ class ManagerTests: XCTestCase {
         let resourceArtifacts = Manager.resourceArtifactsFromURL(url!)
 
         // Then
-        XCTAssertEqual(resourceArtifacts.ids!, [123, 456], "Two IDs, in order, should be returned")
+        XCTAssertEqual(resourceArtifacts!.ids!, [123, 456], "Two IDs, in order, should be returned")
     }
 
     func testResourceArtifactsFromURLShouldReturnQueryParams() {
@@ -186,8 +186,8 @@ class ManagerTests: XCTestCase {
         let resourceArtifacts = Manager.resourceArtifactsFromURL(url!)
 
         // Then
-        XCTAssertNotNil(resourceArtifacts.query, "Query should be populated")
-        XCTAssertEqual(resourceArtifacts.query!, ["foo": ["bar", "biz"], "baz": ["quux"]], "Query dictionary should be correct")
+        XCTAssertNotNil(resourceArtifacts!.query, "Query should be populated")
+        XCTAssertEqual(resourceArtifacts!.query!, ["foo": ["bar", "biz"], "baz": ["quux"]], "Query dictionary should be correct")
     }
 
     func testResourceArtifactsFromURLShouldNotReturnKeyForInvalidQueryParam() {
@@ -198,7 +198,7 @@ class ManagerTests: XCTestCase {
         let resourceArtifacts = Manager.resourceArtifactsFromURL(url!)
 
         // Then
-        XCTAssertEqual(resourceArtifacts.query!, ["bar": ["baz"]], "Returned dictionary should only have one value")
+        XCTAssertEqual(resourceArtifacts!.query!, ["bar": ["baz"]], "Returned dictionary should only have one value")
     }
 
     func testResourceArtifactsFromURLShouldReturnNilForEmptyNSURL() {
@@ -209,8 +209,6 @@ class ManagerTests: XCTestCase {
         let resourceArtifacts = Manager.resourceArtifactsFromURL(url!)
 
         // Then
-        XCTAssertNil(resourceArtifacts.ids)
-        XCTAssertNil(resourceArtifacts.name)
-        XCTAssertNil(resourceArtifacts.query)
+        XCTAssertNil(resourceArtifacts)
     }
 }
