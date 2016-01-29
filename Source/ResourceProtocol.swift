@@ -19,5 +19,5 @@ public protocol ResourceProtocol {
 
      - Returns: NSData representation of object to be returned
      */
-    func data(request: NSURLRequest, resourceDetails: (name: String?, ids: [Int]?)) -> NSData
+    func data(request: NSURLRequest, resourceArtifacts: ResourceArtifacts) -> NSData
 }

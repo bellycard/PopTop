@@ -8,6 +8,12 @@
 
 import SwiftyJSON
 
+// Module wide types
+public typealias QueryArtifacts = [String: [String]]
+public typealias IDArtifacts = [Int]
+public typealias NameArtifact = String
+public typealias ResourceArtifacts = (ids: IDArtifacts?, query: QueryArtifacts?)
+
 public class Manager: NSURLProtocol {
     // MARK: - Properties
     
@@ -21,7 +27,9 @@ public class Manager: NSURLProtocol {
     // MARK: - Protocol implementation
     // Class
     override public class func canInitWithRequest(request: NSURLRequest) -> Bool {
-        if let requestName = resourceNameAndIDFromURL(request.URL!).name, _ = resources[requestName] {
+        let requestName = resourceArtifactsFromURL(request.URL!)!.name
+
+        if resources[requestName] != nil {
             return true
         }
         
@@ -31,20 +39,17 @@ public class Manager: NSURLProtocol {
     // MARK: - Instance
 
     override public func startLoading() {
-        /// A tuple of (key, id) that will be used within the registry dict based on the URL path
-        /// `/path/to/resource/123` -> `(name: "/path/to/resource", ids: [123])`
-        let pathToResourceParts = Manager.resourceNameAndIDFromURL(request.URL!)
+        /// A tuple of (key, id, query) that will be used within the registry dict based on the URL path
+        /// `/path/to/resource/123` -> `(name: "/path/to/resource", ids: [123], query: ["foo": ["bar"]])`
+        let resourceArtifacts = Manager.resourceArtifactsFromURL(request.URL!)
         
-        /// The Resource itself, if available.
+        /// The Resource itself
         /// This is used to create new represetnations of a requested resource
-        /// requested URL: `/path/to/resource/123` -> resource.data().rawData == {"id": 123, "foo": "bar"}
-        let resource = Manager.resources[pathToResourceParts.name!]
-        
-        // Bail out if the resource can't be found. This could happen if a resourceIdentifier was not properly set.
-        precondition(resource != nil, "Resource not found")
+        let resource = Manager.resources[resourceArtifacts!.name]
 
-        /// Data that will be returned in the HTTP request.
-        let dataToReturn = resource!.data(request, resourceDetails: pathToResourceParts)
+        /// Data that will be returned in the HTTP response.
+        /// The `name` is not returned as it is identicical to the `resourceIdentifier` on the `resource` instance
+        let dataToReturn = resource!.data(request, resourceArtifacts: (ids: resourceArtifacts!.ids, query: resourceArtifacts!.query))
 
         let response = NSHTTPURLResponse(URL: request.URL!, statusCode: 200, HTTPVersion: "HTTP/1.1", headerFields: ["Content-Type": resource!.contentType])!
 
@@ -70,16 +75,23 @@ public class Manager: NSURLProtocol {
         }
     }
 
+    /// Remove a resource from the manager
+    static public func removeResource(resource: ResourceProtocol) {
+        resources.remove(resource.resourceIdentifier)
+    }
+
+    /// Remove all resources from the manager
     static public func removeResources() {
         resources.removeAll()
     }
     
     // MARK: - Helpers
     
-    /// Normalize a path which can be used as a Resource Identifier and requested resource ID, if available.
-    /// - Returns: "/path/to/resource/123" -> ("/path/to/resource/", 123)
-    static func resourceNameAndIDFromURL(url: NSURL) -> (name: String?, ids: [Int]?) {
-        var pathComponents = url.pathComponents!
+    /// Normalize a path which can be used as a Resource Identifier and requested resource IDs, if available.
+    /// - Returns: "/path/to/resource/123?foo=bar&baz=quux" -> ("/path/to/resource/", 123, ["foo": ["bar"], "baz": ["quux"])
+    static func resourceArtifactsFromURL(url: NSURL) -> (name: NameArtifact, ids: IDArtifacts?, query: QueryArtifacts?)? {
+        guard var pathComponents = url.pathComponents else { return nil }
+
         var name: String?
         var ids = [Int]?()
         let separator = "/"
@@ -107,7 +119,34 @@ public class Manager: NSURLProtocol {
         
         name = pathComponents.joinWithSeparator(separator)
         name = separator + name!
+
+        let query = queryDictionaryFromURL(url)
         
-        return (name, ids)
+        return (name!, ids, query)
+    }
+
+    // inspired by https://gist.github.com/freerunnering/1215df277d750af71887
+    /// Return a dictionary with arrays populated with the values of query parameters. URLs allow keys to be declared multiple times, hence the array container.
+    static func queryDictionaryFromURL(url: NSURL) -> QueryArtifacts? {
+        guard let query = url.query else { return nil }
+
+        var queryDict = QueryArtifacts()
+
+        for kVString in query.componentsSeparatedByString("&") {
+            let parts = kVString.componentsSeparatedByString("=")
+
+            guard parts.count > 1 else { continue }
+
+            let key = parts.first!.stringByRemovingPercentEncoding!
+            let value = parts.last!.stringByRemovingPercentEncoding!
+            var values = queryDict[key] ?? [String]()
+
+            if !value.isBlank {
+                values.append(value)
+                queryDict[key] = values
+            }
+        }
+
+        return queryDict
     }
 }
