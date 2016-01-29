@@ -17,7 +17,7 @@ class ResourceCollectionTests: XCTestCase {
             let resourceIdentifier = "/path/to/resource"
             let contentType = "fake type"
 
-            func data(request: NSURLRequest, resourceDetails: (name: String?, ids: [Int]?)) -> NSData {
+            func data(request: NSURLRequest, resourceArtifacts: ResourceArtifacts) -> NSData {
                 return NSData()
             }
         }
@@ -38,7 +38,7 @@ class ResourceCollectionTests: XCTestCase {
             let resourceIdentifier = "/path/to/resource"
             let contentType = "fake type"
 
-            func data(request: NSURLRequest, resourceDetails: (name: String?, ids: [Int]?)) -> NSData {
+            func data(request: NSURLRequest, resourceArtifacts: ResourceArtifacts) -> NSData {
                 return NSData()
             }
         }
@@ -47,7 +47,7 @@ class ResourceCollectionTests: XCTestCase {
             let resourceIdentifier = "/path/to/second/resource"
             let contentType = "test content type"
             
-            func data(request: NSURLRequest, resourceDetails: (name: String?, ids: [Int]?)) -> NSData {
+            func data(request: NSURLRequest, resourceArtifacts: ResourceArtifacts) -> NSData {
                 return NSData()
             }
         }
@@ -65,13 +65,41 @@ class ResourceCollectionTests: XCTestCase {
         XCTAssertEqual(resourceCollection["/path/to/second/resource"]!.resourceIdentifier, secondTestResource.resourceIdentifier, "Resource should support subscripting")
     }
 
+    func testShouldRemoveOne() {
+        // Given
+        struct TestResource: ResourceProtocol {
+            let resourceIdentifier = "/path/to/resource"
+            let contentType = "fake type"
+
+            func data(request: NSURLRequest, resourceArtifacts: ResourceArtifacts) -> NSData {
+                return NSData()
+            }
+        }
+
+        let testResource = TestResource()
+        var resourceCollection = ResourceCollection<String, ResourceProtocol>()
+
+        // When
+        resourceCollection[testResource.resourceIdentifier] = testResource
+
+        // Then
+        XCTAssertEqual(resourceCollection.count, 1, "There should be one resource")
+
+        // When
+        let removedResource = resourceCollection.remove(testResource.resourceIdentifier)
+
+        // Then
+        XCTAssertEqual(resourceCollection.count, 0, "There shouldn't be any remaining resources")
+        XCTAssertEqual(removedResource?.resourceIdentifier, testResource.resourceIdentifier, "Returned, removed resource should be same as initial test resource")
+    }
+
     func testShouldRemoveAll() {
         // Given
         struct FirstTestResource: ResourceProtocol {
             let resourceIdentifier = "/path/to/resource"
             let contentType = "fake type"
 
-            func data(request: NSURLRequest, resourceDetails: (name: String?, ids: [Int]?)) -> NSData {
+            func data(request: NSURLRequest, resourceArtifacts: ResourceArtifacts) -> NSData {
                 return NSData()
             }
         }
