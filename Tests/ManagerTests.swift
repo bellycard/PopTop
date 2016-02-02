@@ -142,12 +142,13 @@ class ManagerTests: XCTestCase {
         XCTAssertTrue(secondResult, "PopTop should allow the addition of more URLs")
     }
     
-    func testResourceArtifactsFromURLShouldReturnNameAndNil() {
+    func testResourceArtifactsFromRequestShouldReturnNameAndNil() {
         // Given
-        let url = NSURL(string: "/path/to/resource")
+        let url = NSURL(string: "/path/to/resource")!
+        let request = NSURLRequest(URL: url)
 
         // When
-        let resourceArtifcats = Manager.resourceArtifactsFromURL(url!)
+        let resourceArtifcats = Manager.resourceArtifactsFromRequest(request)
 
         // Then
         XCTAssertEqual(resourceArtifcats!.name, "/path/to/resource", "Relative path should be returned")
@@ -155,60 +156,108 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(resourceArtifcats!.query, "Query should be nil")
     }
 
-    func testResourceArtifactsFromURLShouldReturnSingleID() {
+    func testResourceArtifactsFromRequestShouldReturnSingleID() {
         // Given
-        let url = NSURL(string: "/path/123/to/resource")
+        let url = NSURL(string: "/path/123/to/resource")!
+        let request = NSURLRequest(URL: url)
 
         // When
-        let resourceArtifacts = Manager.resourceArtifactsFromURL(url!)
+        let resourceArtifacts = Manager.resourceArtifactsFromRequest(request)
 
         // Then
         XCTAssertEqual(resourceArtifacts!.ids!, [123], "Correct ID should be returned")
 
     }
 
-    func testResourceArtifactsFromURLShouldReturnMultipleIDs() {
+    func testResourceArtifactsFromRequestShouldReturnMultipleIDs() {
         // Given
-        let url = NSURL(string: "/path/123/to/resource/456")
+        let url = NSURL(string: "/path/123/to/resource/456")!
+        let request = NSURLRequest(URL: url)
 
         // When
-        let resourceArtifacts = Manager.resourceArtifactsFromURL(url!)
+        let resourceArtifacts = Manager.resourceArtifactsFromRequest(request)
 
         // Then
         XCTAssertEqual(resourceArtifacts!.ids!, [123, 456], "Two IDs, in order, should be returned")
     }
 
-    func testResourceArtifactsFromURLShouldReturnQueryParams() {
+    func testResourceArtifactsFromRequestShouldReturnQueryParams() {
         // Given
-        let url = NSURL(string: "/path/to/123/resource?foo=bar&baz=quux&foo=biz")
+        let url = NSURL(string: "/path/to/123/resource?foo=bar&baz=quux&foo=biz")!
+        let request = NSURLRequest(URL: url)
 
         // When
-        let resourceArtifacts = Manager.resourceArtifactsFromURL(url!)
+        let resourceArtifacts = Manager.resourceArtifactsFromRequest(request)
 
         // Then
         XCTAssertNotNil(resourceArtifacts!.query, "Query should be populated")
         XCTAssertEqual(resourceArtifacts!.query!, ["foo": ["bar", "biz"], "baz": ["quux"]], "Query dictionary should be correct")
     }
 
-    func testResourceArtifactsFromURLShouldNotReturnKeyForInvalidQueryParam() {
+    func testResourceArtifactsFromRequestShouldNotReturnKeyForInvalidQueryParam() {
         // Given
-        let url = NSURL(string: "/path/to/123/resource?foo=&bar=baz&123!!")
+        let url = NSURL(string: "/path/to/123/resource?foo=&bar=baz&123!!")!
+        let request = NSURLRequest(URL: url)
 
         // When
-        let resourceArtifacts = Manager.resourceArtifactsFromURL(url!)
+        let resourceArtifacts = Manager.resourceArtifactsFromRequest(request)
 
         // Then
         XCTAssertEqual(resourceArtifacts!.query!, ["bar": ["baz"]], "Returned dictionary should only have one value")
     }
 
-    func testResourceArtifactsFromURLShouldReturnNilForEmptyNSURL() {
+    func testResourceArtifactsFromRequestShouldReturnNilForEmptyNSURL() {
         // Given
-        let url = NSURL(string: "")
+        let url = NSURL(string: "")!
+        let request = NSURLRequest(URL: url)
 
         // When
-        let resourceArtifacts = Manager.resourceArtifactsFromURL(url!)
+        let resourceArtifacts = Manager.resourceArtifactsFromRequest(request)
 
         // Then
         XCTAssertNil(resourceArtifacts)
+    }
+
+    // Skip this test for now due to a bug where HTTPBody is set to nil when PopTop receives the NSURLRequest
+    // http://openradar.appspot.com/15993891
+    func xtestResourceArtifactsFromRequestShouldReturnBodyData() {
+        let testRequest = NSMutableURLRequest(URL: NSURL(string: "https://example.com/path/to/123/resource")!)
+        let session = NSURLSession.sharedSession()
+        let params = ["id": "123", "name": "Test User"]
+        let expect = expectationWithDescription("Test")
+
+        testRequest.HTTPMethod = "POST"
+        testRequest.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(params, options: NSJSONWritingOptions())
+        testRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        testRequest.addValue("application/json", forHTTPHeaderField: "Accept")
+
+        NSURLProtocol.registerClass(PopTop.Manager)
+
+        struct TestPostResource: ResourceProtocol {
+            let resourceIdentifier = "/path/to/:id/resource"
+            let contentType = "fake type"
+
+            func data(request: NSURLRequest, resourceArtifacts: ResourceArtifacts) -> NSData {
+                let body = resourceArtifacts.body!
+                XCTAssertEqual(body["id"]!, ["123"], "Post data should be parsed into a dictionary")
+                return NSData()
+            }
+        }
+
+        manager.addResources(TestPostResource())
+
+        let task = session.dataTaskWithRequest(testRequest) { _,_,_ in
+            expect.fulfill()
+        }
+
+        task.resume()
+
+        waitForExpectationsWithTimeout(task.originalRequest!.timeoutInterval) { err in
+            if let err = err {
+                print("ERROR: \(err.localizedDescription)")
+            }
+
+            task.cancel()
+        }
     }
 }
