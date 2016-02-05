@@ -220,44 +220,44 @@ class ManagerTests: XCTestCase {
 
     // Skip this test for now due to a bug where HTTPBody is set to nil when PopTop receives the NSURLRequest
     // http://openradar.appspot.com/15993891
-    func xtestResourceArtifactsFromRequestShouldReturnBodyData() {
-        let testRequest = NSMutableURLRequest(URL: NSURL(string: "https://example.com/path/to/123/resource")!)
-        let session = NSURLSession.sharedSession()
-        let params = ["id": "123", "name": "Test User"]
-        let expect = expectationWithDescription("Test")
-
-        testRequest.HTTPMethod = "POST"
-        testRequest.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(params, options: NSJSONWritingOptions())
-        testRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        testRequest.addValue("application/json", forHTTPHeaderField: "Accept")
-
-        NSURLProtocol.registerClass(PopTop.Manager)
-
-        struct TestPostResource: ResourceProtocol {
-            let resourceIdentifier = "/path/to/:id/resource"
-            let contentType = "fake type"
-
-            func data(request: NSURLRequest, resourceArtifacts: ResourceArtifacts) -> NSData {
-                let body = resourceArtifacts.body!
-                XCTAssertEqual(body["id"]!, ["123"], "Post data should be parsed into a dictionary")
-                return NSData()
-            }
-        }
-
-        manager.addResources(TestPostResource())
-
-        let task = session.dataTaskWithRequest(testRequest) { _,_,_ in
-            expect.fulfill()
-        }
-
-        task.resume()
-
-        waitForExpectationsWithTimeout(task.originalRequest!.timeoutInterval) { err in
-            if let err = err {
-                print("ERROR: \(err.localizedDescription)")
-            }
-
-            task.cancel()
-        }
-    }
+//    func testResourceArtifactsFromRequestShouldReturnBodyData() {
+//        let testRequest = NSMutableURLRequest(URL: NSURL(string: "https://example.com/path/to/123/resource")!)
+//        let session = NSURLSession.sharedSession()
+//        let params = ["id": "123", "name": "Test User"]
+//        let expect = expectationWithDescription("Test")
+//
+//        testRequest.HTTPMethod = "POST"
+//        testRequest.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(params, options: NSJSONWritingOptions())
+//        testRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//        testRequest.addValue("application/json", forHTTPHeaderField: "Accept")
+//
+//        NSURLProtocol.registerClass(PopTop.Manager)
+//
+//        struct TestPostResource: ResourceProtocol {
+//            let resourceIdentifier = "/path/to/:id/resource"
+//            let contentType = "fake type"
+//
+//            func data(request: NSURLRequest, resourceArtifacts: ResourceArtifacts) -> NSData {
+//                let body = resourceArtifacts.body!
+//                XCTAssertEqual(body["id"]!, ["123"], "Post data should be parsed into a dictionary")
+//                return NSData()
+//            }
+//        }
+//
+//        manager.addResources(TestPostResource())
+//
+//        let task = session.dataTaskWithRequest(testRequest) { _,_,_ in
+//            expect.fulfill()
+//        }
+//
+//        task.resume()
+//
+//        waitForExpectationsWithTimeout(task.originalRequest!.timeoutInterval) { err in
+//            if let err = err {
+//                print("ERROR: \(err.localizedDescription)")
+//            }
+//
+//            task.cancel()
+//        }
+//    }
 }

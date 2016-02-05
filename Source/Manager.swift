@@ -10,7 +10,7 @@ import SwiftyJSON
 
 // Module wide types
 public typealias BodyArtifacts = [String: [String]]
-public typealias IDArtifacts = [Int]
+public typealias IDArtifacts = ContiguousArray<Int>
 public typealias NameArtifact = String
 public typealias QueryArtifacts = [String: [String]]
 public typealias ResourceArtifacts = (body: BodyArtifacts?, ids: IDArtifacts?, query: QueryArtifacts?)
@@ -96,7 +96,7 @@ public class Manager: NSURLProtocol {
       var pathComponents = url.pathComponents else { return nil }
 
     var name: String?
-    var ids = [Int]?()
+    var ids = ContiguousArray<Int>?()
     let separator = "/"
 
     // Check if the URL has an ID within it -> /api/path/to/123/example
@@ -130,11 +130,10 @@ public class Manager: NSURLProtocol {
   }
 
   /// Return a dictionary with arrays populated with the values of HTTP body data. URLs allow keys to be declared multiple times, hence the array container.
-  static func ArtifactDictionaryFromData(data: NSData?) -> QueryArtifacts? {
+  private static func ArtifactDictionaryFromData(data: NSData?) -> QueryArtifacts? {
     guard let data = data,
-      let componentString = String(data: data, encoding: NSUTF8StringEncoding)
-      else {
-        return nil
+          let componentString = String(data: data, encoding: NSUTF8StringEncoding) else {
+              return nil
     }
 
     return ArtifactDictionaryFromString(componentString)
@@ -142,15 +141,15 @@ public class Manager: NSURLProtocol {
 
   // inspired by https://gist.github.com/freerunnering/1215df277d750af71887
   /// Return a dictionary with arrays populated with the values of query parameters. URLs allow keys to be declared multiple times, hence the array container.
-  static func ArtifactDictionaryFromString(string: String?) -> QueryArtifacts? {
+  private static func ArtifactDictionaryFromString(string: String?) -> QueryArtifacts? {
     guard let string = string else { return nil }
 
     var queryDict = QueryArtifacts()
 
-    for kVString in string.componentsSeparatedByString("&") {
-      let parts = kVString.componentsSeparatedByString("=")
+    for keyValueString in string.componentsSeparatedByString("&") {
+      let parts = keyValueString.componentsSeparatedByString("=")
 
-      guard parts.count > 1 else { continue }
+      if parts.count < 2 { continue }
 
       let key = parts.first!.stringByRemovingPercentEncoding!
       let value = parts.last!.stringByRemovingPercentEncoding!
