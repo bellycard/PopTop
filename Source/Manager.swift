@@ -10,7 +10,7 @@ import SwiftyJSON
 
 // Module wide types
 public typealias BodyArtifacts = [String: [String]]
-public typealias IDArtifacts = ContiguousArray<Int>
+public typealias IDArtifacts = [Int]
 public typealias NameArtifact = String
 public typealias QueryArtifacts = [String: [String]]
 public typealias ResourceArtifacts = (body: BodyArtifacts?, ids: IDArtifacts?, query: QueryArtifacts?)
@@ -96,7 +96,7 @@ public class Manager: NSURLProtocol {
       var pathComponents = url.pathComponents else { return nil }
 
     var name: String?
-    var ids = ContiguousArray<Int>?()
+    var ids = IDArtifacts?()
     let separator = "/"
 
     // Check if the URL has an ID within it -> /api/path/to/123/example
