@@ -1,4 +1,6 @@
 platform :ios, "8.0"
 use_frameworks!
 
-pod 'SwiftyJSON', '~> 2.3'
+target 'PopTop' do
+  pod 'SwiftyJSON', '~> 2.3'
+end
