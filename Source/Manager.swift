@@ -28,8 +28,9 @@ public class Manager: NSURLProtocol {
   // MARK: - Protocol implementation
   // Class
   override public class func canInitWithRequest(request: NSURLRequest) -> Bool {
-    // TODO: guard statement
-    let requestName = resourceArtifactsFromRequest(request)!.name
+    guard let requestName = resourceArtifactsFromRequest(request)?.name else {
+      return false
+    }
 
     if resources[requestName] != nil {
       return true
