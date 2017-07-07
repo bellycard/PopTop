@@ -23,7 +23,7 @@ test:
       CODE_SIGNING_REQUIRED=NO
       CODE_SIGN_IDENTITY=
       PROVISIONING_PROFILE=
-      -destination 'platform=iOS Simulator,name=iPad 2,OS=latest'
+      -destination 'platform=iOS Simulator,name=iPad Air 2,OS=latest'
       -sdk iphonesimulator
       -workspace PopTop.xcworkspace
       -scheme "PopTop"
