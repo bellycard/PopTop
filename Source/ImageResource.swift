@@ -15,7 +15,7 @@ public struct ImageResource: ResourceProtocol {
     public let contentType: String
     let imageName: String
     let imageType: ImageType
-    let imageRepresentation: NSData?
+    let imageRepresentation: Data?
     public let resourceIdentifier: String
     
     public init(resourceIdentifier: String, imageName: String, imageType: ImageType) {
@@ -33,7 +33,7 @@ public struct ImageResource: ResourceProtocol {
         self.resourceIdentifier = resourceIdentifier
     }
     
-    public func data(request: NSURLRequest, resourceArtifacts: ResourceArtifacts) -> NSData {
+    public func data(_ request: URLRequest, resourceArtifacts: ResourceArtifacts) -> Data {
         return imageRepresentation!
     }
 }

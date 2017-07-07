@@ -162,12 +162,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D13C39531BCBF7FE0044B40D /* Build configuration list for PBXNativeTarget "PopTop" */;
 			buildPhases = (
-				ECD17255E324DEC5402F575F /* 📦 Check Pods Manifest.lock */,
+				ECD17255E324DEC5402F575F /* [CP] Check Pods Manifest.lock */,
 				D13C393A1BCBF7FE0044B40D /* Sources */,
 				D13C393B1BCBF7FE0044B40D /* Frameworks */,
 				D13C393C1BCBF7FE0044B40D /* Headers */,
 				D13C393D1BCBF7FE0044B40D /* Resources */,
-				AD9D7F71941E2D21E02E2AC2 /* 📦 Copy Pods Resources */,
+				AD9D7F71941E2D21E02E2AC2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -208,9 +208,11 @@
 				TargetAttributes = {
 					D13C393E1BCBF7FE0044B40D = {
 						CreatedOnToolsVersion = 7.0.1;
+						LastSwiftMigration = 0830;
 					};
 					D13C39481BCBF7FE0044B40D = {
 						CreatedOnToolsVersion = 7.0.1;
+						LastSwiftMigration = 0830;
 					};
 				};
 			};
@@ -250,14 +252,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		AD9D7F71941E2D21E02E2AC2 /* 📦 Copy Pods Resources */ = {
+		AD9D7F71941E2D21E02E2AC2 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,19 +267,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopTop/Pods-PopTop-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		ECD17255E324DEC5402F575F /* 📦 Check Pods Manifest.lock */ = {
+		ECD17255E324DEC5402F575F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -424,6 +426,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -444,6 +447,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.belly.PopTop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -454,6 +458,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.belly.PopTopTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -464,6 +469,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.belly.PopTopTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

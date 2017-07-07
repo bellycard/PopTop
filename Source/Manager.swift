@@ -15,11 +15,11 @@ public typealias NameArtifact = String
 public typealias QueryArtifacts = [String: [String]]
 public typealias ResourceArtifacts = (body: BodyArtifacts?, ids: IDArtifacts?, query: QueryArtifacts?)
 
-public class Manager: NSURLProtocol {
+open class Manager: URLProtocol {
   // MARK: - Properties
 
   // Holds instances of Resource subclasses and are used to check if Manager can handle an incoming request
-  private static var resources = ResourceCollection<String, ResourceProtocol>()
+  fileprivate static var resources = ResourceCollection<String, ResourceProtocol>()
 
   static var count: Int {
     return resources.count
@@ -27,7 +27,7 @@ public class Manager: NSURLProtocol {
 
   // MARK: - Protocol implementation
   // Class
-  override public class func canInitWithRequest(request: NSURLRequest) -> Bool {
+  override open class func canInit(with request: URLRequest) -> Bool {
     guard let requestName = resourceArtifactsFromRequest(request)?.name else {
       return false
     }
@@ -41,7 +41,7 @@ public class Manager: NSURLProtocol {
 
   // MARK: - Instance
 
-  override public func startLoading() {
+  override open func startLoading() {
     /// A tuple of (key, id, query) that will be used within the registry dict based on the URL path
     /// `/path/to/resource/123` -> `(name: "/path/to/resource", ids: [123], query: ["foo": ["bar"]])`
     let resourceArtifacts = Manager.resourceArtifactsFromRequest(request)
@@ -54,37 +54,37 @@ public class Manager: NSURLProtocol {
     /// The `name` is not returned as it is identicical to the `resourceIdentifier` on the `resource` instance
     let dataToReturn = resource!.data(request, resourceArtifacts: (ids: resourceArtifacts!.ids, query: resourceArtifacts!.query, body: resourceArtifacts!.body))
 
-    let response = NSHTTPURLResponse(URL: request.URL!, statusCode: 200, HTTPVersion: "HTTP/1.1", headerFields: ["Content-Type": resource!.contentType])!
+    let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: "HTTP/1.1", headerFields: ["Content-Type": resource!.contentType])!
 
-    client?.URLProtocol(self, didReceiveResponse: response, cacheStoragePolicy: .NotAllowed)
-    client?.URLProtocol(self, didLoadData: dataToReturn)
-    client?.URLProtocolDidFinishLoading(self)
+    client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
+    client?.urlProtocol(self, didLoad: dataToReturn)
+    client?.urlProtocolDidFinishLoading(self)
   }
 
   /// Because PopTop always returns an object it is acceptable to leave this empty.
-  override public func stopLoading() {}
+  override open func stopLoading() {}
 
   /// Returns unchanged request
-  override public class func canonicalRequestForRequest(request: NSURLRequest) -> NSURLRequest {
+  override open class func canonicalRequest(for request: URLRequest) -> URLRequest {
     return request
   }
 
   // MARK: - Class
 
   /// Receives a variable amount of ResourceProtocol types that are queried when receiving an HTTP request
-  static public func addResources(resourcesToAdd: ResourceProtocol...) {
+  static open func addResources(_ resourcesToAdd: ResourceProtocol...) {
     for resource in resourcesToAdd {
       resources[resource.resourceIdentifier] = resource
     }
   }
 
   /// Remove a resource from the manager
-  static public func removeResource(resource: ResourceProtocol) {
+  static open func removeResource(_ resource: ResourceProtocol) {
     resources.remove(resource.resourceIdentifier)
   }
 
   /// Remove all resources from the manager
-  static public func removeResources() {
+  static open func removeResources() {
     resources.removeAll()
   }
 
@@ -92,16 +92,16 @@ public class Manager: NSURLProtocol {
 
   /// Normalize a path which can be used as a Resource Identifier and requested resource IDs, if available.
   /// - Returns: "/path/to/resource/123?foo=bar&baz=quux" -> ("/path/to/resource/", 123, ["foo": ["bar"], "baz": ["quux"])
-  static func resourceArtifactsFromRequest(request: NSURLRequest) -> (name: NameArtifact, ids: IDArtifacts?, query: QueryArtifacts?, body: BodyArtifacts?)? {
-    guard let url = request.URL,
-      var pathComponents = url.pathComponents else { return nil }
+  static func resourceArtifactsFromRequest(_ request: URLRequest) -> (name: NameArtifact, ids: IDArtifacts?, query: QueryArtifacts?, body: BodyArtifacts?)? {
+    guard let url = request.url,
+        var pathComponents: [String] = url.pathComponents else { return nil }
 
     var name: String?
-    var ids = IDArtifacts?()
+    var ids = IDArtifacts?([])
     let separator = "/"
 
     // Check if the URL has an ID within it -> /api/path/to/123/example
-    for (index, component) in pathComponents.enumerate() {
+    for (index, component) in pathComponents.enumerated() {
 
       // if it does...
       if let id = Int(component) {
@@ -121,19 +121,19 @@ public class Manager: NSURLProtocol {
       pathComponents.removeFirst()
     }
 
-    name = pathComponents.joinWithSeparator(separator)
+    name = pathComponents.joined(separator: separator)
     name = separator + name!
 
-    let body = ArtifactDictionaryFromData(request.HTTPBody)
+    let body = ArtifactDictionaryFromData(request.httpBody)
     let query = ArtifactDictionaryFromString(url.query)
 
     return (name!, ids, query, body)
   }
 
   /// Return a dictionary with arrays populated with the values of HTTP body data. URLs allow keys to be declared multiple times, hence the array container.
-  private static func ArtifactDictionaryFromData(data: NSData?) -> QueryArtifacts? {
+  fileprivate static func ArtifactDictionaryFromData(_ data: Data?) -> QueryArtifacts? {
     guard let data = data,
-          let componentString = String(data: data, encoding: NSUTF8StringEncoding) else {
+          let componentString = String(data: data, encoding: String.Encoding.utf8) else {
               return nil
     }
 
@@ -142,18 +142,18 @@ public class Manager: NSURLProtocol {
 
   // inspired by https://gist.github.com/freerunnering/1215df277d750af71887
   /// Return a dictionary with arrays populated with the values of query parameters. URLs allow keys to be declared multiple times, hence the array container.
-  private static func ArtifactDictionaryFromString(string: String?) -> QueryArtifacts? {
+  fileprivate static func ArtifactDictionaryFromString(_ string: String?) -> QueryArtifacts? {
     guard let string = string else { return nil }
 
     var queryDict = QueryArtifacts()
 
-    for keyValueString in string.componentsSeparatedByString("&") {
-      let parts = keyValueString.componentsSeparatedByString("=")
+    for keyValueString in string.components(separatedBy: "&") {
+      let parts = keyValueString.components(separatedBy: "=")
 
       if parts.count < 2 { continue }
-
-      let key = parts.first!.stringByRemovingPercentEncoding!
-      let value = parts.last!.stringByRemovingPercentEncoding!
+    
+      let key = parts.first!.removingPercentEncoding!
+      let value = parts.last!.removingPercentEncoding!
       var values = queryDict[key] ?? [String]()
 
       if !value.isBlank {

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'PopTop'
-  s.version      = '0.0.11'
+  s.version      = '0.0.12'
   s.summary      = 'A simple way to return canned responses'
   s.homepage     = 'https://github.com/bellycard/PopTop'
 
@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
 
   s.source       = { git: 'https://github.com/bellycard/PopTop.git', tag: s.version.to_s }
 
-  s.dependency 'SwiftyJSON', '~> 2.3'
+  s.dependency 'SwiftyJSON', '~> 3.0'
 
   s.source_files  = 'Source/*.swift'
 
