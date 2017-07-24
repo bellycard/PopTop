@@ -148,12 +148,12 @@ class ManagerTests: XCTestCase {
         let request = URLRequest(url: url)
 
         // When
-        let resourceArtifcats = Manager.resourceArtifactsFromRequest(request)
+        let resourceArtifacts = Manager.resourceArtifactsFromRequest(request)
 
         // Then
-        XCTAssertEqual(resourceArtifcats!.name, "/path/to/resource", "Relative path should be returned")
-        XCTAssertNil(resourceArtifcats!.ids, "ID should be nil")
-        XCTAssertNil(resourceArtifcats!.query, "Query should be nil")
+        XCTAssertEqual(resourceArtifacts!.name, "/path/to/resource", "Relative path should be returned")
+        XCTAssertNil(resourceArtifacts!.ids, "ID should be nil")
+        XCTAssertNil(resourceArtifacts!.query, "Query should be nil")
     }
 
     func testResourceArtifactsFromRequestShouldReturnSingleID() {
@@ -201,21 +201,9 @@ class ManagerTests: XCTestCase {
 
         // When
         let resourceArtifacts = Manager.resourceArtifactsFromRequest(request)
-
+        let query = resourceArtifacts?.query
         // Then
-        //XCTAssertEqual(resourceArtifacts!.query!, ["bar": ["baz"]], "Returned dictionary should only have one value")
-    }
-
-    func testResourceArtifactsFromRequestShouldReturnNilForEmptyNSURL() {
-        // Given
-        let url = URL(string: "")!
-        let request = URLRequest(url: url)
-
-        // When
-        let resourceArtifacts = Manager.resourceArtifactsFromRequest(request)
-
-        // Then
-        XCTAssertNil(resourceArtifacts)
+        XCTAssertEqual(query?.count, 1, "Returned dictionary should only have one value")
     }
 
     // Skip this test for now due to a bug where HTTPBody is set to nil when PopTop receives the NSURLRequest

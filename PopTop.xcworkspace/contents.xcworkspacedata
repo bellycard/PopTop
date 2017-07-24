@@ -5,9 +5,6 @@
       location = "group:PopTop.xcodeproj">
    </FileRef>
    <FileRef
-      location = "container:Pods">
-   </FileRef>
-   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>

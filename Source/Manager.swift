@@ -97,7 +97,7 @@ open class Manager: URLProtocol {
         var pathComponents: [String] = url.pathComponents else { return nil }
 
     var name: String?
-    var ids = IDArtifacts?([])
+    var ids: IDArtifacts?
     let separator = "/"
 
     // Check if the URL has an ID within it -> /api/path/to/123/example

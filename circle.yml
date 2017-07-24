@@ -11,20 +11,8 @@ dependencies:
     - pod install
 machine:
   xcode:
-    version: "8.0"
+    version: 8.3
   environment:
     LANG: en_US.UTF-8
     XCODE_WORKSPACE: PopTop.xcworkspace
     XCODE_SCHEME: "PopTop"
-test:
-  override:
-    - xctool
-      -reporter pretty
-      CODE_SIGNING_REQUIRED=NO
-      CODE_SIGN_IDENTITY=
-      PROVISIONING_PROFILE=
-      -destination 'platform=iOS Simulator,name=iPad Air 2,OS=latest'
-      -sdk iphonesimulator
-      -workspace PopTop.xcworkspace
-      -scheme "PopTop"
-      build build-tests run-tests
