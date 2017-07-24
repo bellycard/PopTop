@@ -17,8 +17,8 @@ class ResourceCollectionTests: XCTestCase {
             let resourceIdentifier = "/path/to/resource"
             let contentType = "fake type"
 
-            func data(request: NSURLRequest, resourceArtifacts: ResourceArtifacts) -> NSData {
-                return NSData()
+            func data(_ request: URLRequest, resourceArtifacts: ResourceArtifacts) -> Data {
+                return NSData() as Data
             }
         }
 
@@ -38,8 +38,8 @@ class ResourceCollectionTests: XCTestCase {
             let resourceIdentifier = "/path/to/resource"
             let contentType = "fake type"
 
-            func data(request: NSURLRequest, resourceArtifacts: ResourceArtifacts) -> NSData {
-                return NSData()
+            func data(_ request: URLRequest, resourceArtifacts: ResourceArtifacts) -> Data {
+                return NSData() as Data
             }
         }
 
@@ -47,8 +47,8 @@ class ResourceCollectionTests: XCTestCase {
             let resourceIdentifier = "/path/to/second/resource"
             let contentType = "test content type"
             
-            func data(request: NSURLRequest, resourceArtifacts: ResourceArtifacts) -> NSData {
-                return NSData()
+            func data(_ request: URLRequest, resourceArtifacts: ResourceArtifacts) -> Data {
+                return NSData() as Data
             }
         }
 
@@ -71,8 +71,8 @@ class ResourceCollectionTests: XCTestCase {
             let resourceIdentifier = "/path/to/resource"
             let contentType = "fake type"
 
-            func data(request: NSURLRequest, resourceArtifacts: ResourceArtifacts) -> NSData {
-                return NSData()
+            func data(_ request: URLRequest, resourceArtifacts: ResourceArtifacts) -> Data {
+                return NSData() as Data
             }
         }
 
@@ -99,8 +99,8 @@ class ResourceCollectionTests: XCTestCase {
             let resourceIdentifier = "/path/to/resource"
             let contentType = "fake type"
 
-            func data(request: NSURLRequest, resourceArtifacts: ResourceArtifacts) -> NSData {
-                return NSData()
+            func data(_ request: URLRequest, resourceArtifacts: ResourceArtifacts) -> Data {
+                return NSData() as Data
             }
         }
 

@@ -8,14 +8,14 @@
 
 import SwiftyJSON
 
-public class JSONFromFile: ResourceProtocol {
-    public let contentType = "application/json; charset=utf-8"
+open class JSONFromFile: ResourceProtocol {
+    open let contentType = "application/json; charset=utf-8"
     let jsonFileName: String
-    public let resourceIdentifier: String
+    open let resourceIdentifier: String
 
     lazy var json: JSON = { [unowned self] in
-        let file = NSBundle.mainBundle().pathForResource(self.jsonFileName, ofType: "json")
-        return JSON(data: NSData(contentsOfFile: file!)!)
+        let file = Bundle.main.path(forResource: self.jsonFileName, ofType: "json")
+        return JSON(data: NSData(contentsOfFile: file!)! as Data)
     }()
     
     public init (resourceIdentifier: String, jsonFileName: String) {
@@ -23,7 +23,7 @@ public class JSONFromFile: ResourceProtocol {
         self.jsonFileName = jsonFileName
     }
 
-    public func data(request: NSURLRequest, resourceArtifacts: ResourceArtifacts) -> NSData {
+    open func data(_ request: URLRequest, resourceArtifacts: ResourceArtifacts) -> Data {
         return try! json.rawData()
     }
 }

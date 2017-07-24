@@ -11,9 +11,9 @@ import Foundation
 extension String {
     /// Checks if a string is empty or contains only white space characters
     var isBlank: Bool {
-        let whitespaceSet = NSCharacterSet.whitespaceCharacterSet()
+        let whitespaceSet = CharacterSet.whitespaces
 
-        if self.isEmpty || self.stringByTrimmingCharactersInSet(whitespaceSet) == "" {
+        if self.isEmpty || self.trimmingCharacters(in: whitespaceSet) == "" {
             return true
         }
 

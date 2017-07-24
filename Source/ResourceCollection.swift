@@ -9,7 +9,7 @@
 public struct ResourceCollection<KeyType: Hashable, ResourceType> {
     typealias DictionaryType = [KeyType: ResourceType]
 
-    private var dictionary = DictionaryType()
+    fileprivate var dictionary = DictionaryType()
 
     /// Returns the number of items currently in the collection
     var count: Int {
@@ -32,7 +32,7 @@ public struct ResourceCollection<KeyType: Hashable, ResourceType> {
     }
 
     /// Remove and return return the element with provided key
-    mutating func remove(key: KeyType) -> ResourceType? {
-        return dictionary.removeValueForKey(key)
+    mutating func remove(_ key: KeyType) -> ResourceType? {
+        return dictionary.removeValue(forKey: key)
     }
 }

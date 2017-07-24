@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		48047A50F0B11BB0ABF6D1E3 /* Pods_PopTop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 552C13134426F009713CE7AD /* Pods_PopTop.framework */; };
+		33BE480BFE53D3A79EDAEB50 /* Pods_PopTopWorkspace_PopTop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F1831434322BB083631341D /* Pods_PopTopWorkspace_PopTop.framework */; };
+		4395B0A08B99D60F0DAD7831 /* Pods_PopTopWorkspace_PopTopTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 939C3596E89DB8BC01061F91 /* Pods_PopTopWorkspace_PopTopTests.framework */; };
 		D12FDD291BEBE6510093D250 /* ImageResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12FDD281BEBE6510093D250 /* ImageResource.swift */; };
 		D13BC59B1BD6954200336CFF /* ManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13C394E1BCBF7FE0044B40D /* ManagerTests.swift */; };
 		D13C39431BCBF7FE0044B40D /* PopTop.h in Headers */ = {isa = PBXBuildFile; fileRef = D13C39421BCBF7FE0044B40D /* PopTop.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -32,8 +33,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		552C13134426F009713CE7AD /* Pods_PopTop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopTop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7FC5D6B5CD8D506A594F1EA8 /* Pods-PopTop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopTop.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopTop/Pods-PopTop.release.xcconfig"; sourceTree = "<group>"; };
+		137ED89189553D321215271E /* Pods-PopTopWorkspace-PopTop.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopTopWorkspace-PopTop.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopTopWorkspace-PopTop/Pods-PopTopWorkspace-PopTop.debug.xcconfig"; sourceTree = "<group>"; };
+		1E33BABFDF76F99B40D724D4 /* Pods-PopTopWorkspace-PopTopTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopTopWorkspace-PopTopTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopTopWorkspace-PopTopTests/Pods-PopTopWorkspace-PopTopTests.debug.xcconfig"; sourceTree = "<group>"; };
+		65AEA19D908BDF095E77EB6E /* Pods-PopTopWorkspace-PopTopTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopTopWorkspace-PopTopTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopTopWorkspace-PopTopTests/Pods-PopTopWorkspace-PopTopTests.release.xcconfig"; sourceTree = "<group>"; };
+		8F1831434322BB083631341D /* Pods_PopTopWorkspace_PopTop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopTopWorkspace_PopTop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		939C3596E89DB8BC01061F91 /* Pods_PopTopWorkspace_PopTopTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopTopWorkspace_PopTopTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC7DD9E5D73C812002E7FDC2 /* Pods-PopTopWorkspace-PopTop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopTopWorkspace-PopTop.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopTopWorkspace-PopTop/Pods-PopTopWorkspace-PopTop.release.xcconfig"; sourceTree = "<group>"; };
 		BD0A6FF2DC17167C9DED9F3D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D12FDD281BEBE6510093D250 /* ImageResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageResource.swift; sourceTree = "<group>"; };
 		D13C393F1BCBF7FE0044B40D /* PopTop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PopTop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,7 +54,6 @@
 		D1F38CA91BF279DC00EC37F7 /* ResourceCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceCollection.swift; sourceTree = "<group>"; };
 		D1F38CAB1BF27A2400EC37F7 /* ResourceCollectionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceCollectionTests.swift; sourceTree = "<group>"; };
 		D1F38CAD1BF27A5600EC37F7 /* ResourceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceProtocol.swift; sourceTree = "<group>"; };
-		D4C3C61E4CDE1D7CC53D0179 /* Pods-PopTop.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopTop.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopTop/Pods-PopTop.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				48047A50F0B11BB0ABF6D1E3 /* Pods_PopTop.framework in Frameworks */,
+				33BE480BFE53D3A79EDAEB50 /* Pods_PopTopWorkspace_PopTop.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +70,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D13C394A1BCBF7FE0044B40D /* PopTop.framework in Frameworks */,
+				4395B0A08B99D60F0DAD7831 /* Pods_PopTopWorkspace_PopTopTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,16 +81,19 @@
 			isa = PBXGroup;
 			children = (
 				BD0A6FF2DC17167C9DED9F3D /* Pods.framework */,
-				552C13134426F009713CE7AD /* Pods_PopTop.framework */,
+				8F1831434322BB083631341D /* Pods_PopTopWorkspace_PopTop.framework */,
+				939C3596E89DB8BC01061F91 /* Pods_PopTopWorkspace_PopTopTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		9A34B9C1D437E1E11DC81D1D /* Pods */ = {
+		7E8381876174A9A16FA4A542 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D4C3C61E4CDE1D7CC53D0179 /* Pods-PopTop.debug.xcconfig */,
-				7FC5D6B5CD8D506A594F1EA8 /* Pods-PopTop.release.xcconfig */,
+				137ED89189553D321215271E /* Pods-PopTopWorkspace-PopTop.debug.xcconfig */,
+				AC7DD9E5D73C812002E7FDC2 /* Pods-PopTopWorkspace-PopTop.release.xcconfig */,
+				1E33BABFDF76F99B40D724D4 /* Pods-PopTopWorkspace-PopTopTests.debug.xcconfig */,
+				65AEA19D908BDF095E77EB6E /* Pods-PopTopWorkspace-PopTopTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -97,7 +105,7 @@
 				D13C394D1BCBF7FE0044B40D /* Tests */,
 				D13C39401BCBF7FE0044B40D /* Products */,
 				3EDB42D9A09E36B62DF3CF86 /* Frameworks */,
-				9A34B9C1D437E1E11DC81D1D /* Pods */,
+				7E8381876174A9A16FA4A542 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -162,12 +170,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D13C39531BCBF7FE0044B40D /* Build configuration list for PBXNativeTarget "PopTop" */;
 			buildPhases = (
-				ECD17255E324DEC5402F575F /* 📦 Check Pods Manifest.lock */,
+				9019F4725DBB91B3E213655F /* [CP] Check Pods Manifest.lock */,
 				D13C393A1BCBF7FE0044B40D /* Sources */,
 				D13C393B1BCBF7FE0044B40D /* Frameworks */,
 				D13C393C1BCBF7FE0044B40D /* Headers */,
 				D13C393D1BCBF7FE0044B40D /* Resources */,
-				AD9D7F71941E2D21E02E2AC2 /* 📦 Copy Pods Resources */,
+				3851EBBF225C6B3606D843DE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -182,9 +190,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D13C39561BCBF7FE0044B40D /* Build configuration list for PBXNativeTarget "PopTopTests" */;
 			buildPhases = (
+				9AC637F88AB71F1CB1889C98 /* [CP] Check Pods Manifest.lock */,
 				D13C39451BCBF7FE0044B40D /* Sources */,
 				D13C39461BCBF7FE0044B40D /* Frameworks */,
 				D13C39471BCBF7FE0044B40D /* Resources */,
+				3C8CE7EF8776AEB9F4050880 /* [CP] Embed Pods Frameworks */,
+				78D92456FCE1053920C8E9F6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -208,9 +219,13 @@
 				TargetAttributes = {
 					D13C393E1BCBF7FE0044B40D = {
 						CreatedOnToolsVersion = 7.0.1;
+						LastSwiftMigration = 0830;
 					};
 					D13C39481BCBF7FE0044B40D = {
 						CreatedOnToolsVersion = 7.0.1;
+						DevelopmentTeam = ZTW6MGWBD6;
+						LastSwiftMigration = 0830;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -250,34 +265,79 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		AD9D7F71941E2D21E02E2AC2 /* 📦 Copy Pods Resources */ = {
+		3851EBBF225C6B3606D843DE /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopTop/Pods-PopTop-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopTopWorkspace-PopTop/Pods-PopTopWorkspace-PopTop-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		ECD17255E324DEC5402F575F /* 📦 Check Pods Manifest.lock */ = {
+		3C8CE7EF8776AEB9F4050880 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopTopWorkspace-PopTopTests/Pods-PopTopWorkspace-PopTopTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		78D92456FCE1053920C8E9F6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopTopWorkspace-PopTopTests/Pods-PopTopWorkspace-PopTopTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9019F4725DBB91B3E213655F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		9AC637F88AB71F1CB1889C98 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -408,7 +468,7 @@
 		};
 		D13C39541BCBF7FE0044B40D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D4C3C61E4CDE1D7CC53D0179 /* Pods-PopTop.debug.xcconfig */;
+			baseConfigurationReference = 137ED89189553D321215271E /* Pods-PopTopWorkspace-PopTop.debug.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
@@ -424,12 +484,13 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		D13C39551BCBF7FE0044B40D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7FC5D6B5CD8D506A594F1EA8 /* Pods-PopTop.release.xcconfig */;
+			baseConfigurationReference = AC7DD9E5D73C812002E7FDC2 /* Pods-PopTopWorkspace-PopTop.release.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
@@ -444,26 +505,35 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.belly.PopTop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
 		D13C39571BCBF7FE0044B40D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1E33BABFDF76F99B40D724D4 /* Pods-PopTopWorkspace-PopTopTests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = ZTW6MGWBD6;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.belly.PopTopTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		D13C39581BCBF7FE0044B40D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 65AEA19D908BDF095E77EB6E /* Pods-PopTopWorkspace-PopTopTests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = ZTW6MGWBD6;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.belly.PopTopTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
